@@ -21,7 +21,6 @@
                 <col class="description"/>
                 <col class="trackingnumber"/>
             <?php } ?>
-            <col class="username"/>
         </colgroup>
         <tbody>
         <tr>
@@ -40,7 +39,6 @@
                 <td class="description"><?php echo $this->kga['lang']['description'] ?></td>
                 <td class="trackingnumber"><?php echo $this->kga['lang']['trackingNumber'] ?></td>
             <?php } ?>
-            <td class="username"><?php echo $this->kga['lang']['username'] ?></td>
         </tr>
         </tbody>
     </table>
