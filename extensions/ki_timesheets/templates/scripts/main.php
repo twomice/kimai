@@ -18,7 +18,6 @@
             <col class="project"/>
             <col class="activity"/>
             <?php if ($this->showTrackingNumber) { ?>
-                <col class="description"/>
                 <col class="trackingnumber"/>
             <?php } ?>
         </colgroup>
@@ -36,7 +35,6 @@
             <td class="project"><?php echo $this->kga['lang']['project'] ?></td>
             <td class="activity"><?php echo $this->kga['lang']['activity'] ?></td>
             <?php if ($this->showTrackingNumber) { ?>
-                <td class="description"><?php echo $this->kga['lang']['description'] ?></td>
                 <td class="trackingnumber"><?php echo $this->kga['lang']['trackingNumber'] ?></td>
             <?php } ?>
         </tr>
