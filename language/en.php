@@ -70,7 +70,7 @@ return array(
     "recordAgain" => "Record this recording again",
     "comment" => "Comment",
     "location" => "Location",
-    "trackingNumber" => "Tracking Number",
+    "trackingNumber" => "Track#",
     "cookiewarning" => "Turn Cookies on before you proceed.",
     "JSwarning" => "JavaScript must be active.",
     "designation" => "Description",
