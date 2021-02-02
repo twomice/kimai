@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) 2006-2009 Kimai-Development-Team
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -16,15 +16,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Kimai; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
- *
- *
- *
- *
- *
- *
- *
- *
- *
  */
 
 /**
@@ -33,7 +24,7 @@
  * et diaoul 02/11/10 encodé en ANSI AS UTF-8 rev 394
  * updated by Claude Gelinas 10-12-2014
  */
-return array(
+return [
     "countryCode" => "fr-FR",
     "preferences" => "Préférences",
     "total" => "Total",
@@ -61,7 +52,7 @@ return array(
     "breiteZeitspalte" => "largeur colonne heure",
     "breiteUhrspalte" => "largeur colonne montre",
     "breiteDatumspalte" => "largeur colonne date",
-    "recommended" => "recommendé",
+    "recommended" => "recommandé",
     "submit" => "OK",
     "cancel" => "Annuler",
     "close" => "Fermer",
@@ -84,19 +75,18 @@ return array(
     "comment" => "Commentaire",
     "location" => "Lieu",
     "trackingNumber" => "N°",
-    "cookiewarning" => "Les cookies doivent être acceptés! Autoriser les cookies avant de continuer.",
-    "JSwarning" => "JavaScript doit être activé! Cette version ne fonctionne pas sans cela.",
-    "designation" => "désignation",
+    "cookiewarning" => "Les cookies doivent être acceptés ! Autoriser les cookies avant de continuer.",
+    "JSwarning" => "JavaScript doit être activé ! Cette version ne fonctionne pas sans cela.",
     "banned" => "Bloqué (Compte bloqué)",
     "tooManyLogins" => "Trop de mauvaises tentatives de connexion - utilisateur bloqué.",
     "accessDenied" => "Accès refusé !",
     "wrongPass" => "Mauvais utilisateur et/ou mot de passe",
-    "tryAgain" => "Réessayer / mot de passe oublié?",
+    "tryAgain" => "Réessayer / mot de passe oublié ?",
     "back" => "Retour à la fenêtre de connexion",
-    "bye" => "Au revoir!",
+    "bye" => "Au revoir !",
     "login" => "Connexion",
     "logout" => "Déconnexion",
-    "loggedon" => "Connecté en tant que:",
+    "loggedon" => "Connecté en tant que :",
     "username" => "Usager",
     "password" => "Mot de passe",
     "newPassword" => "Nouveau mot de passe",
@@ -105,22 +95,22 @@ return array(
     "passwordTooShort" => "le mot de passe est de moins de 5 caractères.",
     "forgotPassword" => "Mot de passe oublié",
 
-    "passwordReset" => array(
+    "passwordReset" => [
         "notSupported" => "Le plugin présent ne supporte pas la réinitialisation du mot de passe.",
-        "instructions" => "Entrer votre nom d'usager et un courriel contenant un lien sera envoyé à l'adresse courriel associée. Il n'y aura pas d'avertissement si votre nom d'usager est incorecte alors asurez-vous de l'inscrire correctement!",
+        "instructions" => "Entrer votre nom d'usager et un courriel contenant un lien sera envoyé à l'adresse courriel associée. Il n'y aura pas d'avertissement si votre nom d'usager est incorecte alors asurez-vous de l'inscrire correctement !",
         "mailSubject" => "Kimai - réinitialisation du mot de passe",
-        "mailMessage" => "Ceci est un message courriel automatique pour réinitialiser votre mot de passe à Kimai. Svp, ouvrir l'adresse suivante dans votre navigateur: %{URL}",
+        "mailMessage" => "Ceci est un message courriel automatique pour réinitialiser votre mot de passe à Kimai. Svp, ouvrir l'adresse suivante dans votre navigateur : %{URL}",
         "mailConfirmation" => "Un courriel a été envoyé à l'adresse courriel associée. Svp, suivre les instructions fournies dans ce courriel. Si aucune adresse courriel n'est associée à ce nom d'usager vous ne recevrez aucun courriel et devrez contacter votre administrateur.",
         "returnToLogin" => "retour à la page de connection",
         "invalidKey" => "Le code de sécurité ne concorde pas avec la clé transmise par courriel. Assurez-vous que le lien complet est ouvert par votre navigateur.",
         "success" => "Votre mot de passe a été changé.",
-    ),
+    ],
 
-    "minLength" => "min. 5 caractères!",
+    "minLength" => "min. 5 caractères !",
     "update" => "La structure de la base de données de la version Kimai installée a été mise à jour.<br />Nous recommandons de sauvegarder vos données pour éviter toute perte<br />durant la procédure de mise a jour.",
-    "updateNow" => "Mise à jour de la base de données en cours!",
-    "stop" => "Arrêt!",
-    "start" => "Démarre!",
+    "updateNow" => "Mise à jour de la base de données en cours !",
+    "stop" => "Arrêt !",
+    "start" => "Démarrage !",
     "setTimeframe" => "Choisir plage",
     "now" => "Maintenant",
     "specify" => "Spécifier la liste",
@@ -130,7 +120,7 @@ return array(
     "company" => "Societé",
 
     "vat" => "TVA",
-    "contactPerson" => "Contact:",
+    "contactPerson" => "Contact :",
 
     "street" => "Rue",
     "zipcode" => "Code postal",
@@ -165,7 +155,7 @@ return array(
     "editMembershipRole" => "éditer permission de groupe",
     "deleteMembershipRole" => "effacer permission de groupe",
     "membershipRoles" => "Permissions de groupes",
-    "rolename" => "role name",
+    "rolename" => "Nom du rôle",
     "adminmail" => "Adresse courriel de l'administrateur",
     "logintries" => "Nombre de mauvaises tentatives de connexions autorisées avant de bloquer l'utilisateur",
     "bantime" => "Durée du bloquage en secondes",
@@ -220,34 +210,33 @@ return array(
     "commentType" => "Type de commentaire",
     "ctype0" => "Commentaire",
     "ctype1" => "Note",
-    "ctype2" => "Attention!",
-    "hint" => "Truc:",
+    "ctype2" => "Attention !",
+    "hint" => "Astuce :",
     "rename_caution_before_username" => "Si vous modifiez le nom d'utilisateur de",
-    "rename_caution_after_username" => "vous devrez vous reconnecter immédiatement avec le nouvel utilisateur!",
-    "timediff_warn" => "Vous devez saisir des heures différentes dans ces champs!",
+    "rename_caution_after_username" => "vous devrez vous reconnecter immédiatement avec le nouvel utilisateur !",
+    "timediff_warn" => "Vous devez saisir des heures différentes dans ces champs !",
     "visibility" => "Visibilité",
     "showitem" => "Rendre visible",
     "hideitem" => "Rendre invisible",
-    "checkUsername" => "Vous devez saisir un nom d'utilisateur dans le champ à gauche du bouton Ajouter!",
-    "checkGroupname" => "Vous devez entrer un nom de groupe dans le champ à gauche du bouton ajouter-un-groupe!",
-    "checkGlobalRoleName" => "Vous devez entrer un nom de rôle dans le champ à gauche du bouton ajouter-un-rôle!",
-    "checkMembershipRoleName" => "Vous devez entrer un nom de rôle dans le champ à gauche du bouton ajouter-un-rôle!",
-    "checkStatusname" => "Vous devez entrer un nom de statut dans le champ à gauche du bouton ajouter-un-statut!",
+    "checkUsername" => "Vous devez saisir un nom d'utilisateur dans le champ à gauche du bouton Ajouter !",
+    "checkGroupname" => "Vous devez entrer un nom de groupe dans le champ à gauche du bouton ajouter-un-groupe !",
+    "checkGlobalRoleName" => "Vous devez entrer un nom de rôle dans le champ à gauche du bouton ajouter-un-rôle !",
+    "checkMembershipRoleName" => "Vous devez entrer un nom de rôle dans le champ à gauche du bouton ajouter-un-rôle !",
     "clickToReload" => "Cliquer ici pour relancer l'interface graphique",
-    "sure" => "Etes-vous sûr?",
+    "sure" => "Etes-vous sûr ?",
     "clock" => "Horloge",
     "currSum" => "Synthèse horaire",
     "admWarn" => "Vous êtes Admin. Ce statut ne peut être abaissé que par un autre admin.",
     "flip_project_display" => "Trier la table des tâches par client",
     "project_comment_flag" => "Toujours afficher les commentaires à coté des tâches",
     "showIDs" => "Montrer les IDs",
-    "error" => "Une erreur est survenue!",
+    "error" => "Une erreur est survenue !",
     "checkupdate" => "Vérifier si une mise à jour est disponible",
 
-    "selectedForRecording" => "Sélection en cours pour saisie:",
-    "selectedCustomerLabel" => "C:",
-    "selectedProjectLabel" => "P:",
-    "selectedActivityLabel" => "T:",
+    "selectedForRecording" => "Sélection en cours pour saisie :",
+    "selectedCustomerLabel" => "C :",
+    "selectedProjectLabel" => "P :",
+    "selectedActivityLabel" => "T :",
 
     "testCustomer" => "Client-Test",
     "testProject" => "Projet-Test",
@@ -271,7 +260,7 @@ return array(
     "wage" => "Coût",
     "roundTimesheetEntries" => "Arrondir la nouvelle entrée à",
     "minutes" => "Minutes",
-    "seconds" => "Seconds",
+    "seconds" => "Secondes",
     "and" => "et",
 
     "customerlogin" => "Login client",
@@ -283,24 +272,21 @@ return array(
     "atLeastOneGroup" => "Au moins un groupe doit être sélectionné.",
     "noFading" => "Pas d'effet fondu",
     "user_list_hidden" => "Cacher la liste util. par défaut",
-    "checkStatusname" => "Vous devez entrer un nom de statut dans le champ à gauche du bouton ajouter-un-statut!",
-    'show_sensible_data' => 'Montrer les données sensibles aussi dans l\'extension Débugage.',
+    "checkStatusname" => "Vous devez entrer un nom de statut dans le champ à gauche du bouton ajouter-un-statut !",
     'show_update_warn' => 'Désactiver l\'alerte avant une mise à jour.',
     'check_at_startup' => 'Montrer un message sur la page de conection si une nouvelle version est disponible.',
     'show_daySeperatorLines' => 'Tirer une ligne entre les entrées de jours différents.',
     'show_gabBreaks' => 'Tirer une ligne entre deux enregistrements qui ne sont pas parfaitement jointifs.',
-    'show_RecordAgain' => 'Montrer le bouton &quot;Réenregistrer&quot; en face de chaque saisie.',
+    'show_RecordAgain' => 'Montrer le bouton &quot; Réenregistrer &quot; en face de chaque saisie.',
     'show_TrackingNr' => 'Autoriser l\' édition du champ N°-Suivi.',
     'currency_name' => 'Nom de la monnaie à utiliser.',
     'currency_sign' => 'Symbole de la monnaie à utiliser.',
-    'currency_first' => 'Indiquer la monnaie avant la valeur (ex: &euro; 100,00)',
+    'currency_first' => 'Indiquer la monnaie avant la valeur (ex : &euro; 100,00)',
     'display_date_format' => 'Format de la date pour la notation de la plage de temps (<a href="http://php.net/manual/en/function.strftime.php" target="_blank"> pour la fonction strftime()</a>)',
     'table_date_format' => 'Format de la date pour les tables (<a href="http://php.net/manual/en/function.strftime.php" target="_blank">pour la fonction strftime()</a>)',
     'round_time' => 'Arrondir le temps à ',
     'round_time_minute' => ' minute(s).',
-    "allowRoundDown" => "Permettre d'arrondir l'entrée à la baisse.",
-    'logged_in_as' => 'Connecté comme:',
-
+    'logged_in_as' => 'Connecté en tant que :',
     'decimal_separator' => 'Séparateur décimal',
 
     'view_filter' => 'Voir le filtre',
@@ -311,7 +297,7 @@ return array(
 
     'multiplier' => 'Multiplicateur',
 
-    'dateAndTimeHelp' => '<strong>Les temps et dates peuvent être entrés avec la notation courte:</strong><br />
+    'dateAndTimeHelp' => '<strong>Les temps et dates peuvent être entrés avec la notation courte :</strong><br />
             Dates: 5 &rarr; le 5 du mois courant &nbsp;&nbsp;
             1004 &rarr; le 10.04. de l\'année en cours &nbsp;&nbsp;
             100406 &rarr; 10.04.2006<br />
@@ -348,7 +334,7 @@ et pourront être modifiés par la suite au besoin, sans limite.</strong>',
     'exactSums' => 'Utiliser les sommes exactes au lieu d\' additionner les valeurs arrondies indiquées.',
 
     'securityWarning' => 'Alerte de sécurité',
-    'installerWarningHeadline' => 'Le dossier d\'installation (INSTALL) est toujours présent!',
+    'installerWarningHeadline' => 'Le dossier d\'installation (INSTALL) est toujours présent !',
     'installerWarningText' => 'Vous devez supprimer le dossier d\'installation (INSTALL) afin que personne ne puisse ré-installer KIMAI.',
 
     'change' => 'change',
@@ -357,25 +343,31 @@ et pourront être modifiés par la suite au besoin, sans limite.</strong>',
     'StartTimeBeforeEndTime' => 'Le temps de départ doit être antérieure au temps de fin.',
 
     'credits' => <<<'EOD'
-        Si vous faites des modifications, nous aprécierions que vous postiez sur <a href="%1$s">forum</a>.
         La dernière version peut être téléchargée <a href="%2$s">Ici</a> (Pour les test seulement!).
         <br /><br />
         SVP supportez les futurs développements de Kimai avec une <a href="%3$s">donation</a> ou en étendant sa <a href="%5$s">bibliothèque de langues</a>.
         Si vous trouvez des bugs ou avez des idées de fonctionnalités, n'\hésitez pas à nous contacter sur le forum.
         Ou encore mieux: créer un <a href="%4$s">ticket</a>.
 EOD
-,
+    ,
     'credits_license' => 'Ce logiciel est un logiciel libre et publié \'EN L\'ETAT\' sans aucune espèce de garantie sous les conditions de la %1$s.',
-    'credits_thanks' => 'Des remerciement aussi pour le support à:',
+    'credits_thanks' => 'Des remerciement aussi pour le support à :',
     'credits_libs' => 'Our thanks also go to the projects:',
 
 
-    'months' => array("Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"),
-    'months_short' => array("Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc"),
-    'weekdays' => array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"),
-    'weekdays_short' => array("Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"),
+    'months' => ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+    'months_short' => ["Jan", "Fév", "Mar", "Avr", "Mai", "Jun", "Jul", "Aoû", "Sep", "Oct", "Nov", "Déc"],
+    'weekdays' => ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"],
+    'weekdays_short' => ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+    'quicklink_today' => "Aujourd'hui",
+    'quicklink_yesterday' => "Hier",
+    'quicklink_lastWeek' => "Semaine dernière",
+    'quicklink_lastMonth' => "Mois dernier",
+    'quicklink_thisWeek' => "Cette semaine",
+    'quicklink_thisMonth' => "Ce mois",
 
-    'errorMessages' => array(
+
+    'errorMessages' => [
         'permissionDenied' => 'Permission refusée',
         "userWithSameName" => "Le nom d'un client ne peut être le même que le nom d'un usager.",
         "customerWithSameName" => "Le nom d'un usager ne peut être le même que le nom d'un client.",
@@ -384,29 +376,33 @@ EOD
         'noActivitySelected' => 'Aucune activité sélectionnée.',
         'noProjectSelected' => 'Aucun projet sélectionné.',
         'multiplierNegative' => 'Le multiplicateur doit être plus grand que 0.',
-    ),
+    ],
 
-    'confirmations' => array(
-        'ownGlobalRoleChange' => 'Etes vous certain de vouloir changer votre propre rôle globale de "%OLD%" à "%NEW%"?\n Ceci pourrait conduire à des permissions miondres!',
-    ),
-    'errors' => array(
-        0 => array('hdl' => "Impossible de se connecter à la base de données!",
-            'txt' => "Vérifier que la base de données fonctionne, possède un connecteur PDO actif et que les entrées dans le fichier 'conf.php' du répertoire 'includes' sont correctes."),
-        1 => array('hdl' => "Erreur durant l'installation!",
+    'confirmations' => [
+        'ownGlobalRoleChange' => 'Etes vous certain de vouloir changer votre propre rôle globale de "%OLD%" à "%NEW%"?\n Ceci pourrait conduire à des permissions miondres !',
+    ],
+    'errors' => [
+        0 => [
+            'hdl' => "Impossible de se connecter à la base de données !",
+            'txt' => "Vérifier que la base de données fonctionne, possède un connecteur PDO actif et que les entrées dans le fichier 'conf.php' du répertoire 'includes' sont correctes."
+        ],
+        1 => [
+            'hdl' => "Erreur durant l'installation !",
             'txt' => 'Kimai ne peut créer les tables neccessaires car des tables avec ce nom de préfixe existent déjà.<br/>
 Pour mettre à jour l\'installation existante, merci de cliquer <a href="../index.php">Ici</a>.<br/>
-Choisissez un autre préfixe de table ou supprimez les tables existantes avec ce préfixe pour permettre à Kimai une installation correcte.')
-    ),
+Choisissez un autre préfixe de table ou supprimez les tables existantes avec ce préfixe pour permettre à Kimai une installation correcte.'
+        ]
+    ],
 
-    'updater' => array(
-        0 => "Oui, j'ai une sauvegarde de la base Kimai! Continuer la mise à jour!",
+    'updater' => [
+        0 => "Oui, j'ai une sauvegarde de la base Kimai ! Continuer la mise à jour !",
         10 => "Légende",
         20 => "La requête a été exécutée correctement.",
         30 => "La requête a causé une erreur - trècertainement mineure.",
         40 => "La requête a causé une erreur fatale.",
         50 => "Fichier de log de la sauvegarde:",
-        60 => "La sauvegarde a échoué - Mise à jour annulée!",
-        70 => "Fichier de  log de la mise a jour:",
+        60 => "La sauvegarde a échoué - Mise à jour annulée !",
+        70 => "Fichier de  log de la mise a jour :",
         80 => "La base de données a été mise à jour et une copie de sauvegarde a été créée.",
         90 => "Requêtes exécutées.",
         100 => "La mise a jour de la base de données a échoué à cause d'une erreur fatale. Une sauvegarde a été créée au cas o&ugrave; Kimai ne fonctionnerait plus correctement.",
@@ -415,26 +411,25 @@ Choisissez un autre préfixe de table ou supprimez les tables existantes avec ce
         130 => "Impossible d'écrire dans autoconf.php.",
         140 => "Mise a jour du fichier autoconf.php",
         'timezone' => 'Kimai supporte les fuseaux horaires. SVP sélectioner votre fuseau horaire par défaut.Il sera utilisé pour tous les utilisateurs et clients. les utilisateurs peuvent changer leur fuseau horaire.',
-    ),
+    ],
 
-
-    'backup' => array(
-        0 => "L'outil de sauvegarde/restauration n' a pas encore été testé! A utiliser à vos propres risques!",
-        1 => "Sauvegardes disponibles:",
+    'backup' => [
+        0 => "L'outil de sauvegarde/restauration n' a pas encore été testé ! A utiliser à vos propres risques !",
+        1 => "Sauvegardes disponibles :",
         2 => "restauré",
         3 => "supprimé",
         4 => "OK",
-        5 => "Vous pouvez seulement retrouver *une* sauvegarde à la fois!",
+        5 => "Vous pouvez seulement retrouver *une* sauvegarde à la fois !",
         6 => "Sauvegarde du ",
         7 => "a été restauré.",
         8 => "Faire une sauvegarde",
-        9 => "Ces sauvegardes sont des instantanés! Ceci signifie qu'ils continuent de vivre dans la base de données actuelle dans laquelle Kimai stocke ces données. Les sauvegardes via cet utilitaire ne remplacent pas les sauvegardes sur un media physique séparé. Il y a plein d'outils de sauvegarde de base de données sur le web ;)",
+        9 => "Ces sauvegardes sont des instantanés ! Ceci signifie qu'ils continuent de vivre dans la base de données actuelle dans laquelle Kimai stocke ces données. Les sauvegardes via cet utilitaire ne remplacent pas les sauvegardes sur un media physique séparé. Il y a plein d'outils de sauvegarde de base de données sur le web ;)",
         10 => "Identification requise",
         11 => "Pour empêcher les personnes non-autorisées de créer, effacer ou restaurer une sauvegarde vous devez donner le code d'injection du mote de passe inscrite dans include/autoconf.php. Il est constitué de lettre et de chiffres.",
-    ),
+    ],
 
 
-    'export_extension' => array(
+    'export_extension' => [
 
         "print_hint" => "Cliquer sur OK pour ouvrir un tableau imprimable.",
         "dl_hint" => "Cliquer sur OK pour télécharger le fichier exporté.",
@@ -497,9 +492,9 @@ Choisissez un autre préfixe de table ou supprimez les tables existantes avec ce
         'time_type' => 'Format du temps',
         'dec_time' => 'Temps decimal',
         'time' => 'Temps standard',
-    ),
+    ],
 
-    'permissions' => array(
+    'permissions' => [
         'view' => 'Vue',
         'edit' => 'éditer',
         'delete' => 'effacer',
@@ -512,9 +507,9 @@ Choisissez un autre préfixe de table ou supprimez les tables existantes avec ce
         'showRates' => 'voir le taux',
         'editRates' => 'éditer le taux',
         'editAdvanced' => 'édition avancée'
-    ),
+    ],
 
-    'ext_invoice' => array(
+    'ext_invoice' => [
         'invoiceTitle' => 'Créer une facture',
         'invoiceProject' => 'Tâches',
         'invoiceTimePeriod' => 'Période',
@@ -525,15 +520,15 @@ Choisissez un autre préfixe de table ou supprimez les tables existantes avec ce
         'noData' => 'Il n\' y a pas de données de temps pour le projet et la période choisis.',
         'noProject' => 'Aucun projet n\'a été sélectionné.',
         'defaultVat' => 'TVA par défaut'
-    ),
+    ],
 
-    'ext_budget' => array(
+    'ext_budget' => [
         'unusedBudget' => 'Disponible'
-    ),
+    ],
 
     "extensionsTitle" => "Titre d'extension",
 
-    'extensions' => array(
+    'extensions' => [
         "adminPanel_extension" => "Panneau d'administration",
         'ki_timesheet' => 'Feuille de temps',
         'ki_timesheets' => 'Feuilles de temps',
@@ -545,16 +540,15 @@ Choisissez un autre préfixe de table ou supprimez les tables existantes avec ce
         'ki_export' => 'Exporter',
         'core' => 'noyau',
         'demo_ext' => 'Extension de démonstration',
-    ),
+    ],
 
-    'updatecheck' => array(
+    'updatecheck' => [
         'release' => '<b>Une mise à jour officielle est disponible, avec de nouvelles fonctionnalités et corrections de bugs. Nous vous suggérons fortement de mettre à niveau.</b>',
         "beta" => "<i>Nouvelle version Beta disponible. Vous pouvez la récupérer sur la page de téléchargement pour la tester, mais ne l'utilisez pas en environnement de production.</i>",
         'current' => 'Vous utilisez la dernière version :)',
-    ),
+    ],
 
 
     "log_delete" => "Le journal a été effacé",
 
-);
-?>
+];

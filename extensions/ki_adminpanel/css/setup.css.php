@@ -1,10 +1,9 @@
 <?php
 	header('Content-type: text/css');
-	$table_header = "../../../skins/standard/grfx/g3_table_header.png";
 ?>
 
 #adminPanel_extension_panel {
-    top:120px;
+    top:150px;
     z-index:2;
     border:1px solid black; 
     margin:0;

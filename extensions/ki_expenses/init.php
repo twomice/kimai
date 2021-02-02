@@ -1,8 +1,8 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
- * (c) 2006-2009 Kimai-Development-Team
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
+ * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,7 +24,7 @@ include('../../includes/basics.php');
 include('private_db_layer_mysql.php');
 checkUser();
 
-$dir_templates = "templates/";
+$dir_templates = 'templates/';
 $datasrc = "config.ini";
 $settings = parse_ini_file($datasrc);
 $dir_ext = $settings['EXTENSION_DIR'];
@@ -38,7 +38,7 @@ $out = $timeframe[1];
 
 $view = new Zend_View();
 $view->setBasePath(WEBROOT . 'extensions/' . $dir_ext . '/' . $dir_templates);
-$view->addHelperPath(WEBROOT . '/templates/helpers', 'Zend_View_Helper');
+$view->addHelperPath(WEBROOT . 'templates/helpers', 'Zend_View_Helper');
 
 $view->assign('kga', $kga);
 
@@ -62,29 +62,29 @@ $view->assign('total', Kimai_Format::formatCurrency(array_reduce($view->expenses
 
 
 if (isset($kga['user'])) // user logged in
-  $ann = expenses_by_user($in, $out, array($kga['user']['userID']));
+  $ann = expenses_by_user($in, $out, [$kga['user']['userID']]);
 else // customer logged in
-  $ann = expenses_by_user($in, $out, null, array($kga['customer']['customerID']));
+  $ann = expenses_by_user($in, $out, null, [$kga['customer']['customerID']]);
 $ann = Kimai_Format::formatCurrency($ann);
 $view->assign('user_annotations', $ann);
 
 // TODO: function for loops or convert it in template with new function
 if (isset($kga['user'])) // user logged in
-  $ann = expenses_by_customer($in, $out, array($kga['user']['userID']));
+  $ann = expenses_by_customer($in, $out, [$kga['user']['userID']]);
 else // customer logged in
-  $ann = expenses_by_customer($in, $out, null, array($kga['customer']['customerID']));
+  $ann = expenses_by_customer($in, $out, null, [$kga['customer']['customerID']]);
 $ann = Kimai_Format::formatCurrency($ann);
 $view->assign('customer_annotations', $ann);
 
 if (isset($kga['user'])) // user logged in
-  $ann = expenses_by_project($in, $out, array($kga['user']['userID']));
+  $ann = expenses_by_project($in, $out, [$kga['user']['userID']]);
 else // customer logged in
-  $ann = expenses_by_project($in, $out, null, array($kga['customer']['customerID']));
+  $ann = expenses_by_project($in, $out, null, [$kga['customer']['customerID']]);
 $ann = Kimai_Format::formatCurrency($ann);
 $view->assign('project_annotations', $ann);
 
 if (isset($kga['user'])) {
-    $view->assign('hideComments', $database->user_get_preference('ui.showCommentsByDefault') != 1);
+    $view->assign('hideComments', !$kga->getSettings()->isShowComments());
 } else {
     $view->assign('hideComments', true);
 }

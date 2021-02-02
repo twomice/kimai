@@ -1,6 +1,6 @@
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) 2006-2009 Kimai-Development-Team
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -32,8 +32,13 @@ function deb_ext_onload() {
     $('#deb_ext_shoutbox').ajaxForm(function() { 
         $('#deb_ext_shoutbox_field').val('');
     });
-    
+
+    $('#kga_section').change(function() {
+        deb_ext_reloadKGA($('#kga_section').val());
+    });
+
     deb_ext_reloadLogfileLoop();
+    deb_ext_reloadKGA('all');
 
     deb_ext_resize();
     $("#loader").hide(); 
@@ -87,11 +92,11 @@ function deb_ext_reloadLogfileOnce() {
     });
 }
 
-function deb_ext_reloadKGA() {
+function deb_ext_reloadKGA(section) {
     $('a').blur();
-    $.post(deb_ext_path + "processor.php", { axAction: "reloadKGA", axValue: 0, id: 0 }, 
+    $.post(deb_ext_path + "processor.php", { axAction: "reloadKGA", axValue: section, id: 0 },
     function(data) {
-        $("#deb_ext_kga").html(data);
+        $("#deb_ext_kga_cnt").html(data);
     });
 }
 

@@ -27,10 +27,10 @@ class BasePDF extends TCPDF
     public function time($number)
     {
         if ($number == -1) {
-            return "-------";
-        } else {
-            return strftime($this->time_format, $number);
+            return '-------';
         }
+
+        return strftime($this->time_format, $number);
     }
 
     /**
@@ -52,13 +52,16 @@ class BasePDF extends TCPDF
      */
     public function timespan($number)
     {
-        global $kga;
+        $kga = Kimai_Registry::getConfig();
         if ($number == -1) {
-            return "-------";
-        } else {
-            return str_replace(".", $kga['conf']['decimalSeparator'],
-                sprintf("%01.2f", $number)) . " " . $kga['lang']['export_extension']['duration_unit'];
+            return '-------';
         }
+
+        return str_replace(
+                   '.',
+                   $kga['conf']['decimalSeparator'],
+                   sprintf("%01.2f", $number)
+               ) . ' ' . $kga['lang']['export_extension']['duration_unit'];
     }
 
     /**
@@ -69,9 +72,9 @@ class BasePDF extends TCPDF
      */
     public function time_unit($time)
     {
-        global $kga;
+        $kga = Kimai_Registry::getConfig();
 
-        return $time . " " . $kga['lang']['export_extension']['duration_unit'];
+        return $time . ' ' . $kga['lang']['export_extension']['duration_unit'];
     }
 
     /**
@@ -83,7 +86,7 @@ class BasePDF extends TCPDF
      */
     public function SumStdTime($time1, $timesum)
     {
-        $times = array($time1, $timesum);
+        $times = [$time1, $timesum];
         $seconds = 0;
         foreach ($times as $time) {
             list($hour, $minute) = explode(':', $time);
@@ -109,7 +112,7 @@ class BasePDF extends TCPDF
         $s = $duration % 60;
         $m = (($duration - $s) / 60) % 60;
         $h = floor($duration / 3600);
-        $timeLength =  $h . ":" . substr('0' . $m, - 2);
+        $timeLength = $h . ':' . substr('0' . $m, - 2);
         return $this->time_unit($timeLength);
     }
 
@@ -156,11 +159,11 @@ class BasePDF extends TCPDF
      */
     public function printSummary($header, $data)
     {
-        global $kga;
+        $kga = Kimai_Registry::getConfig();
 
         $summarizedData = $this->summarize($data);
 
-        $w = array($this->getPageWidth() - $this->pagedim[$this->page]['lm'] - $this->pagedim[$this->page]['rm'], 0, 0);
+        $w = [$this->getPageWidth() - $this->pagedim[$this->page]['lm'] - $this->pagedim[$this->page]['rm'], 0, 0];
         if (isset($this->columns['wage'])) {
             $w[2] = 30;
             $w[0] -= 30;
@@ -175,7 +178,7 @@ class BasePDF extends TCPDF
 
         // Color and font restoration
         $this->SetFillColor(224, 235, 255);
-        $this->SetTextColor(0);
+        $this->SetTextColor();
         $this->SetFont('');
         // Data
         $fill = 0;
@@ -188,7 +191,7 @@ class BasePDF extends TCPDF
                 $this->Cell(array_sum($w), 0, '', 'T');
                 $this->Ln();
                 $this->Cell($w[0], 6, $kga['lang']['export_extension']['subtotal'] . ':', '', 0, 'R', false);
-                if ($_REQUEST['time_type'] == "dec_time") {
+                if ($_REQUEST['time_type'] == 'dec_time') {
                     if (isset($this->columns['dec_time'])) {
                         $this->Cell($w[1], 6, $this->timespan($sum_time), 'R', 0, 'R', true);
                     }
@@ -210,7 +213,7 @@ class BasePDF extends TCPDF
                 $this->SetFont('');
             }
             $this->Cell($w[0], 6, $row['name'], 'LR', 0, 'L', $fill);
-            if ($_REQUEST['time_type'] == "dec_time") {
+            if ($_REQUEST['time_type'] == 'dec_time') {
                 if (isset($this->columns['dec_time'])) {
                     $this->Cell($w[1], 6, $this->timespan($row['time']), 'LR', 0, 'R', $fill);
                 }
@@ -233,7 +236,7 @@ class BasePDF extends TCPDF
 
         $this->Cell($w[0], 6, $kga['lang']['export_extension']['finalamount'] . ':', '', 0, 'R', false);
         $this->SetFont('', 'B');
-        if ($_REQUEST['time_type'] == "dec_time") {
+        if ($_REQUEST['time_type'] == 'dec_time') {
             if (isset($this->columns['dec_time'])) {
                 $this->Cell($w[1], 6, $this->timespan($sum_time), '', 0, 'R', true);
             }
@@ -250,13 +253,15 @@ class BasePDF extends TCPDF
 
     /**
      * Create the summary data array.
+     * @param array $orderedExportData
+     * @return array
      */
     function summarize($orderedExportData)
     {
-        global $kga;
+        $kga = Kimai_Registry::getConfig();
         // arrays for keeping track to print summary
-        $timeSheetSummary = array();
-        $expenseSummary = array();
+        $timeSheetSummary = [];
+        $expenseSummary = [];
 
         foreach ($orderedExportData as $customer) {
             $project_ids = array_keys($customer);
@@ -266,14 +271,14 @@ class BasePDF extends TCPDF
                     // summary aggregation
                     if ($row['type'] == 'timeSheet') {
                         if (isset($timeSheetSummary[$row['activityID']])) {
-                            $timeSheetSummary[$row['activityID']]['time'] += ($kga['conf']['exactSums'] == 1) ? $row['duration'] / 3600 : $row['decimalDuration']; //Sekunden
+                            $timeSheetSummary[$row['activityID']]['time'] += ($kga->isUseExactSums() == 1) ? $row['duration'] / 3600 : $row['decimalDuration']; //Sekunden
                             $timeSheetSummary[$row['activityID']]['std_time'] += $row['duration'];
-                            $timeSheetSummary[$row['activityID']]['wage'] += ($kga['conf']['exactSums'] == 1) ? $row['wage_decimal'] : $row['wage']; //Euro
+                            $timeSheetSummary[$row['activityID']]['wage'] += ($kga->isUseExactSums() == 1) ? $row['wage_decimal'] : $row['wage']; //Euro
                         } else {
                             $timeSheetSummary[$row['activityID']]['name'] = html_entity_decode($row['activityName']);
-                            $timeSheetSummary[$row['activityID']]['time'] = ($kga['conf']['exactSums'] == 1) ? $row['duration'] / 3600 : $row['decimalDuration'];
+                            $timeSheetSummary[$row['activityID']]['time'] = ($kga->isUseExactSums() == 1) ? $row['duration'] / 3600 : $row['decimalDuration'];
                             $timeSheetSummary[$row['activityID']]['std_time'] = $row['duration'];
-                            $timeSheetSummary[$row['activityID']]['wage'] = ($kga['conf']['exactSums'] == 1) ? $row['wage_decimal'] : $row['wage'];
+                            $timeSheetSummary[$row['activityID']]['wage'] = ($kga->isUseExactSums() == 1) ? $row['wage_decimal'] : $row['wage'];
                         }
                     } else {
                         $expenseInfo['name'] = $kga['lang']['export_extension']['expense'] . ': ' . $row['projectName'];

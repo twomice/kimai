@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) 2006-2009 Kimai-Development-Team
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -23,7 +23,7 @@
  * @author Florian Lentsch <office@florian-lentsch.at>
  */
 
-require_once dirname(__FILE__) . '/../helpers/ExcelExporter.php';
+require_once __DIR__ . '/../helpers/ExcelExporter.php';
 
 $excel = new Kimai_Export_ExcelExporter();
 $excel->render($this->kga, $this->exportData, $this->columns, $this->custom_timeformat);

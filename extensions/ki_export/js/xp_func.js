@@ -1,6 +1,6 @@
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) 2006-2009 Kimai-Development-Team
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -176,7 +176,7 @@ function export_extension_set_heightTop() {
  */
 function export_extension_set_TableWidths() {
 	export_extension_get_dimensions();
-	// set table widths   
+	// set table widths
 
 	($("#xp").innerHeight() - $("#xp table").outerHeight() > 0) ? scr = 0 : scr = scroller_width; // width of export table depending on scrollbar or not
 	$("#xp table").css("width", export_width - scr);
@@ -271,7 +271,7 @@ function export_extension_activities_changed() {
 // reloads timesheet, customer, project and activity tables
 //
 function export_extension_reload() {
-	// don't reload if extension is not loaded  
+	// don't reload if extension is not loaded
 	if ($('.ki_export').html() == '') {
 		return;
 	}
@@ -326,6 +326,25 @@ function export_toggle_column(name) {
 			returnfunction
 		);
 	}
+}
+
+/**
+ * Check if any checked entrys are in the list and confirm toggle if there are any.
+ */
+function export_toogle_cleared_confirm() {
+	var checked_elements = 0;
+	$('#xptable td.cleared>a').each(function() {
+		if ($(this).hasClass("is_cleared")) {
+			checked_elements++;
+		}
+	});
+	if (checked_elements > 0) {
+		// TODO: add translations somehow
+		if (!confirm('There are already ' + checked_elements + ' cleared entries!\nDo you really want to set these entries to uncleared?')) {
+			return false;
+		}
+	}
+	return true;
 }
 
 /**

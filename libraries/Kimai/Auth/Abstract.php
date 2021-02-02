@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -26,14 +26,11 @@
  * First it is checked if automatic login is possible with this method.
  * If so it is tried via the performAutoLogin function.
  * When a user provides credentials the authenticate function is called.
- *
- * @author sl
- * @author Kevin Papst
  */
 abstract class Kimai_Auth_Abstract
 {
     /**
-     * @var array
+     * @var Kimai_Config
      */
     protected $kga = null;
 
@@ -44,7 +41,7 @@ abstract class Kimai_Auth_Abstract
 
     /**
      * @param Kimai_Database_Mysql $database
-     * @param array $kga
+     * @param Kimai_Config $kga
      */
     public function __construct($database = null, $kga = null)
     {
@@ -79,15 +76,15 @@ abstract class Kimai_Auth_Abstract
     }
 
     /**
-     * @param array $kga
+     * @param Kimai_Config $kga
      */
-    public function setKga(array $kga)
+    public function setKga($kga)
     {
         $this->kga = $kga;
     }
 
     /**
-     * @return array
+     * @return Kimai_Config
      */
     protected function getKga()
     {
@@ -167,19 +164,19 @@ abstract class Kimai_Auth_Abstract
 
         $memberships = $database->membership_roles();
         $membership = $memberships[0]['membershipRoleID'];
-        foreach ($memberships as $membership) {
-            if ($membership['name'] == 'User') {
-                $membership = $membership['membershipRoleID'];
+        foreach ($memberships as $membership_tmp) {
+            if ($membership_tmp['name'] == 'User') {
+                $membership = $membership_tmp['membershipRoleID'];
             }
         }
 
-        return array($group => $membership);
+        return [$group => $membership];
     }
 
     /**
      * Return an ID of a global role to which users should be added, if they authenticated but are not known to Kimai.
      * The default implementation uses the first role or, if present, a role called 'User'.
-     * @return integer global role ID
+     * @return int global role ID
      */
     public function getDefaultGlobalRole()
     {

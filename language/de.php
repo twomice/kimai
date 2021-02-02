@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 /**
  * deutsch
  */
-return array(
+return [
     "countryCode" => "de-DE",
     "preferences" => "Einstellungen",
     "total" => "Gesamt",
@@ -71,7 +71,6 @@ return array(
     "trackingNumber" => "Auftragsnummer",
     "cookiewarning" => "Bitte schalten Sie Cookies an bevor Sie sich anmelden.",
     "JSwarning" => "JavaScript muss eingeschaltet sein.",
-    "designation" => "Bezeichnung",
     "banned" => "Account gesperrt",
     "tooManyLogins" => "Zu viele falsche Versuche - Benutzer ist gesperrt.",
     "accessDenied" => "Zutritt verweigert!",
@@ -89,7 +88,7 @@ return array(
     "passwordsDontMatch" => "Die beiden eingegebenen Passwörter stimmen nicht überein.",
     "passwordTooShort" => "Das eingegebene Passwort hat nicht mindestens 5 Zeichen.",
     "forgotPassword" => "Passwort vergessen",
-    "passwordReset" => array(
+    "passwordReset" => [
         "button" => "Passwort zurücksetzen",
         "notSupported" => "Das aktuelle Authentifizierungsplugin unterstützt kein Zurücksetzen des Passworts.",
         "instructions" => "Geben Sie Ihren Benutzernamen ein und eine Mail mit einem Link wird an die hinterlegte Mail-Adresse versendet. Achten Sie auf eine korrekte Eingabe, da Fehleingaben nicht angezeigt werden.",
@@ -99,7 +98,7 @@ return array(
         "returnToLogin" => "zurück zur Anmeldeseite",
         "invalidKey" => "Der Sicherheitsschlüssel stimmt nicht mit dem per Mail versendeten überein. Stellen Sie sicher, dass die vollständige URL aus der Mail im Browser geöffnet wurde.",
         "success" => "Ihr Passwort wurde geändert.",
-    ),
+    ],
     "minLength" => "min. 5 Zeichen!",
     "update" => "Die Datenbank-Struktur der installierten Kimai Version muss aktualisiert werden.<br />Wir empfehlen, vor der Aktualisierung ein Backup Ihrer gespeicherten Zeiterfassung<br />zu machen, um sicher zu gehen, dass Ihre Zeitdaten nicht beschädigt werden.",
     "updateNow" => "Datenbank-Aktualisierung jetzt durchführen!",
@@ -262,7 +261,6 @@ return array(
     "atLeastOneGroup" => 'Es muss mindestens eine Gruppe ausgewählt sein.',
     "noFading" => "Ein-/Ausblenden deaktivieren",
     "user_list_hidden" => "standardmäßig Liste mit Benutzern ausblenden",
-    'show_sensible_data' => 'Zeige in der Debug Extension auch sensible Daten an.',
     'show_update_warn' => 'Warnung vor dem Update nicht mehr anzeigen.',
     'check_at_startup' => 'Auf der Login-Seite über eine neue Version informieren.',
     'show_daySeperatorLines' => 'Trennlinie zwischen Tagen in den Tabellen anzeigen.',
@@ -275,10 +273,14 @@ return array(
     'display_date_format' => 'Format des Datums der Zeitspanne (<a href="http://php.net/manual/de/function.strftime.php" target="_blank">Notation für strftime()</a>)',
     'date_format_0' => 'Format des Datumspicker (<a href="http://api.jqueryui.com/datepicker/#utility-formatDate" target="_blank">Notation für dateFormat</a>)',
     'date_format_3' => 'Format des Datumspicker in PHP (muss dem Format des Datumspickers entsprechen - <a href="http://php.net/manual/en/function.date.php" target="_blank">Notation für date</a>)',
-    'table_date_format' => ' Format des Datums in den Tabellen (<a href="http://php.net/manual/de/function.strftime.php" target="_blank">Notation für strftime()</a>)',
+    'table_date_format' => 'Format des Datums in den Tabellen (<a href="http://php.net/manual/de/function.strftime.php" target="_blank">Notation für strftime()</a>)',
+    'table_time_format' => 'Format der Zeiten in den Tabellen (<a href="http://php.net/manual/de/function.strftime.php" target="_blank">Notation für strftime()</a>)',
     'round_time' => 'Zeit runden auf ',
     'round_time_minute' => ' Minute(n).',
-    'allowRoundDown' => 'Erlaube das Abrunden von Zeiten.',
+    'roundingMethod' => 'Rundungsmethode',
+    'roundingMethod_default' => 'Standard (Start ab, Stop auf)',
+    'roundingMethod_closest' => 'Mathematisch (Start auf/ab, Stop auf/ab)',
+    'roundingMethod_ceil' => 'Immer Aufrunden',
     'logged_in_as' => 'Angemeldet als:',
     'decimal_separator' => 'Dezimal-Trennzeichen',
     'view_filter' => 'Ansichtsfilter',
@@ -298,10 +300,12 @@ return array(
     'editLimitError' => 'Das Enddatum liegt weiter in der Vergangenheit, als es erlaubt wurde.',
     'hideClearedEntries' => 'abgerechnete Einträge verstecken',
     'showCommentsByDefault' => 'Kommentare standardmäßig anzeigen',
-    'showTrackingNumber' => 'Auftragsnummer und Beschreibung in Zeiterfassung anzeigen',
+    'showTrackingNumber' => 'Auftragsnummer in Zeiterfassung anzeigen',
+    'showBillability' => 'Verechenbarkeit in Zeiterfassung anzeigen',
     'hideOverlapLines' => 'Zeitüberschneidungen nicht markieren',
     'defaultLocation' => 'Standard Ort',
     'showQuickNote'	=> 'Zeige Schnellbearbeitungs-Button',
+    'inlineEditingOfDescriptions'	=> 'Direktbearbeitung von Beschreibungen',
     'general' => 'Allgemein',
     'address' => 'Adresse',
     'contact' => 'Kontakt',
@@ -311,15 +315,14 @@ return array(
     'internalProject' => 'internes Projekt',
     'exactSums' => 'Exakte Summen bilden statt die angezeigten gerundeten Werte zu addieren.',
     'securityWarning' => 'Sicherheitswarnung',
-    'installerWarningHeadline' => 'installer Ordner noch vorhanden!',
-    'installerWarningText' => 'Sie sollten den Ordner löschen, damit niemand anderes Kimai neu installieren kann.',
+    'installerWarningHeadline' => 'Installationsverzeichnis noch vorhanden.',
+    'installerWarningText' => 'Sie sollten den Ordner löschen, damit niemand Kimai neu installieren kann.',
     'change' => 'ändern',
     'sublistAnnotations' => 'Anmerkungen bei den Listen',
     'TimeDateInputError' => 'Ihre Eingabe für die Uhrzeit oder das Datum ist nicht gültig.',
     'StartTimeBeforeEndTime' => 'Die Startzeit muss vor der Endzeit liegen.',
 
     'credits' => <<<'EOD'
-        Wenn Sie Modifikationen vornehmen würden wir uns über eine Nachricht im <a href="%1$s">Forum</a> freuen.
         Die neueste Entwickler Version kann für Testzwecke <a href="%2$s">hier</a> heruntergeladen werden.
         <br /><br />
         Bitte unterstützen Sie die weitere Entwicklung von Kimai mit einer <a href="%3$s">Spende</a>
@@ -331,12 +334,18 @@ EOD
     'credits_thanks' => 'Weiteren Dank für Ihre Unterstützung an:',
     'credits_libs' => 'Unser Dank geht auch an die Projekte:',
 
-    'months' => array("Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"),
-    'months_short' => array("Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"),
-    'weekdays' => array("Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"),
-    'weekdays_short' => array("So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"),
+    'months' => ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+    'months_short' => ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+    'weekdays' => ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+    'weekdays_short' => ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+    'quicklink_today' => 'Heute',
+    'quicklink_yesterday' => 'Gestern',
+    'quicklink_lastWeek' => 'Letzte Woche',
+    'quicklink_lastMonth' => 'Letzter Monat',
+    'quicklink_thisWeek' => 'Diese Woche',
+    'quicklink_thisMonth' => 'Dieser Monat',
 
-    'errorMessages' => array(
+    'errorMessages' => [
         'permissionDenied' => 'Keine Berechtigung',
         'userWithSameName' => 'Kundennamen dürfen nicht gleich lauten wie Benutzernamen.',
         'userExistsAlready' => 'Benutzer existiert bereits.',
@@ -348,22 +357,26 @@ EOD
         'multiplierNegative' => 'Der Multiplikator muss größer als 0 sein.',
         'emptyField' => 'Fehlender Wert für Feld: %s',
         'wrongData' => 'Die eingetragenen Daten sind fehlerhaft',
-    ),
+    ],
 
-    'confirmations' => array(
+    'confirmations' => [
         'ownGlobalRoleChange' => 'Möchten Sie ihre globale Rolle von "%OLD%" zu "%NEW%" ändern? \nDas kann zu weniger Berechtigungen führen!'
-    ),
+    ],
 
-    'errors' => array(
-        0 => array('hdl' => "Datenbankverbindung verweigert!",
-                   'txt' => "Bitte stellen Sie sicher das Datenbank und eventuell PDO-Erweiterung laufen und die Einstellungen in der Datei 'autoconf.php' im Ordner 'includes' richtig sind."),
-        1 => array('hdl' => "Fehler bei der Installation!",
-                   'txt' => 'Kimai kann benötigte Tabellen nicht erstellen, da bereits Tabellen mit gleichem Namen existieren.<br/>
+    'errors' => [
+        0 => [
+            'hdl' => "Datenbankverbindung verweigert!",
+            'txt' => "Bitte stellen Sie sicher das Datenbank und eventuell PDO-Erweiterung laufen und die Einstellungen in der Datei 'autoconf.php' im Ordner 'includes' richtig sind."
+        ],
+        1 => [
+            'hdl' => "Fehler bei der Installation!",
+            'txt' => 'Kimai kann benötigte Tabellen nicht erstellen, da bereits Tabellen mit gleichem Namen existieren.<br/>
 Falls Sie Kimai nur updaten wollen klicken Sie bitte <a href="../index.php">hier</a>.<br/>
-Wählen Sie ein anderes Tabellenpräfix oder löschen Sie die existierenden Tabellen mit diesem Präfix, damit Kimai eine Neuinstallation vornehmen kann.')
-    ),
+Wählen Sie ein anderes Tabellenpräfix oder löschen Sie die existierenden Tabellen mit diesem Präfix, damit Kimai eine Neuinstallation vornehmen kann.'
+        ]
+    ],
 
-    'updater' => array(
+    'updater' => [
         0 => "Ja, Ich habe ein Backup meiner Kimai-Datenbank! Update starten!",
         10 => "Legende:",
         20 => "Query wurde erfolgreich ausgeführt.",
@@ -380,9 +393,9 @@ Wählen Sie ein anderes Tabellenpräfix oder löschen Sie die existierenden Tabe
         130 => "autoconf.php konnte nicht geschrieben werden.",
         140 => "Schreibe neue autoconf.php",
         'timezone' => 'Kimai unterstützt jetzt Zeitzonen. Bitte wählen sie ihre Standardzeitzone. Diese gilt für alle Benutzer und Kunden. Benutzer können ihre Zeitzone später ändern.',
-    ),
+    ],
 
-    'backup' => array(
+    'backup' => [
         0 => "Dieses Backup-Utility wurde noch nicht hinreichend getestet! Nutzung auf eigenes Risiko!",
         1 => "Vorhandene Backups:",
         2 => "wiederherstellen",
@@ -395,9 +408,9 @@ Wählen Sie ein anderes Tabellenpräfix oder löschen Sie die existierenden Tabe
         9 => "Diese Backups sind genaugenommen Snapshots! D.h. sie liegen in genau der gleichen Datenbank wie Ihre Live-Daten. Das Backup über dieses Utility ersetzt NICHT ein echtes Backup Ihrer Datanbank auf einem anderen Datenträger. Tools zum Sichern von Datenbanken gibt es reichlich im Internet ;)",
         10 => "Autorisierung erforderlich",
         11 => "Um nicht autorisierte Personen daran zu hindern Backups zu erstellen, zu löschen oder widerherzustellen müssen sie den Passwort Salt (\$password_salt) aus include/autoconf.php eingeben. Dieser besteht nur aus Buchstaben und Zahlen."
-    ),
+    ],
 
-    'export_extension' => array(
+    'export_extension' => [
         "print_hint" => "Klicken Sie auf OK um eine druckbare Tabelle anzuzeigen.",
         "dl_hint" => "Klicken Sie auf OK um den Download zu starten.",
         "tab_filter" => "Filter",
@@ -446,17 +459,19 @@ Wählen Sie ein anderes Tabellenpräfix oder löschen Sie die existierenden Tabe
         'reverse_order' => 'Ältere Einträge zuerst',
         'time_period' => 'Zeitraum',
         'duration_unit' => 'Std.',
-    ),
+        'cleared' => 'Abgerechnet',
+    ],
 
-    'ext_invoice' => array(
-        "invoiceTitle" => "Rechnung erstellen",
-        "invoiceCustomer" => "Kunde",
-        "invoiceProject" => "Projekte",
-        "invoiceTimePeriod" => "Zeitspanne",
-        "invoiceTemplate" => "Rechnungsvorlage",
-        "invoiceOptionShort" => "Kurze Abrechnung",
-        "invoiceOptionRound" => "Zeiten runden",
-        "invoiceButton" => "Erstellen",
+    'ext_invoice' => [
+        'invoiceTitle' => 'Rechnung erstellen',
+        'invoiceCustomer' => 'Kunde',
+        'invoiceProject' => 'Projekte',
+        'invoiceTimePeriod' => 'Zeitspanne',
+        'invoiceTemplate' => 'Rechnungsvorlage',
+        'invoiceOptionShort' => 'Kurze Abrechnung',
+        'invoiceOptionRound' => 'Zeiten runden',
+        'markEntriesAsCleared' => 'Zeiten als abgerechnet markieren',
+        'invoiceButton' => 'Erstellen',
         'noData' => 'Für die ausgewählte Zeitspanne existieren keine Einträge',
         'noProject' => 'Fehlende Projektauswahl',
         'defaultVat' => 'Mehrwertsteuer',
@@ -466,15 +481,15 @@ Wählen Sie ein anderes Tabellenpräfix oder löschen Sie die existierenden Tabe
         'orderDateAsc' => 'Datum - älteste zuerst',
         'orderDateDesc' => 'Datum - neueste zuerst',
         'noDateSelected' => 'Fehlende Zeitspanne',
-    ),
+    ],
 
-    'ext_budget' => array(
+    'ext_budget' => [
         'unusedBudget' => 'frei'
-    ),
+    ],
 
     'extensionsTitle' => 'Erweiterungen',
 
-    'permissions' => array(
+    'permissions' => [
         'view' => 'Ansehen',
         'edit' => 'Bearbeiten',
         'delete' => 'Löschen',
@@ -487,9 +502,9 @@ Wählen Sie ein anderes Tabellenpräfix oder löschen Sie die existierenden Tabe
         'showRates' => 'Stundenlohn anzeigen',
         'editRates' => 'Stundenlohn bearbeiten',
         'editAdvanced' => 'Erweiterte Einstellungen bearbeiten',
-    ),
+    ],
 
-    'extensions' => array(
+    'extensions' => [
         'adminPanel_extension' => 'Administration',
         'ki_timesheet' => 'Zeiterfassung',
         'ki_timesheets' => 'Zeiterfassung',
@@ -501,14 +516,14 @@ Wählen Sie ein anderes Tabellenpräfix oder löschen Sie die existierenden Tabe
         'ki_export' => 'Export',
         'core' => 'Berechtigungen',
         'demo_ext' => 'Demo'
-    ),
+    ],
 
-    'updatecheck' => array(
+    'updatecheck' => [
         'release' => "<b>Es gibt ein offizielles Update, das neue Funktionen und Fehlerkorrekturen enthält. Es wird empfohlen zu aktualisieren.</b>",
         'beta' => "<i>Es gibt eine neue Beta Version. Sie können es zum Testen von der Download Seite laden, aber bitte nicht produktiv einsetzen.</i>",
         'current' => "Ihre Version ist auf dem neusten Stand"
-    ),
+    ],
 
     "log_delete" => "Protokoll gelöscht",
 
-);
+];

@@ -1,13 +1,20 @@
 /.project
 *.*~
-vendor/
-temporary/*.txt
-temporary/zend_cache*
-autoconf.php
 .settings
-.idea/
+/.idea/
 .DS_Store
-libraries/bin/
-libraries/phpunit/
-libraries/symfony/
-/bin/
+/*.iml
+
+/temporary/*
+!/temporary/.htaccess
+
+# the kimai config file
+/includes/autoconf.php
+
+/libraries/*
+# libraries that will be autoloaded but cannot be fetched from external repositories
+!/libraries/Kimai/
+!/libraries/jQuery/
+!/libraries/phpclasses/
+!/libraries/phpjs/
+!/libraries/TinyButStrongPlugins/

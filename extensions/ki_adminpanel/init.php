@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -17,8 +17,9 @@
  * along with Kimai; If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Include Basics
 include '../../includes/basics.php';
+
+$database = Kimai_Registry::getDatabase();
 
 $user = checkUser();
 
@@ -97,16 +98,16 @@ $view->assign('tab_status', $view->render("status.php"));
 // ========================
 $showAdvancedTab = $database->global_role_allows($kga['user']['globalRoleID'], 'adminPanel_extension-editAdvanced');
 if ($showAdvancedTab) {
-    $view->assign('languages', Kimai_Translations::languages());
+    $view->assign('languages', Kimai_Translation_Service::getAvailableLanguages());
     $view->assign('timezones', timezoneList());
 
     $view->assign('editLimitEnabled', false);
     $view->assign('editLimitDays', '');
     $view->assign('editLimitHours', '');
 
-    if ($kga['conf']['editLimit'] != '-') {
+    if ($kga->isEditLimit()) {
         $view->assign('editLimitEnabled', true);
-        $editLimit = $kga['conf']['editLimit'] / (60 * 60); // convert to hours
+        $editLimit = $kga->getEditLimit() / (60 * 60); // convert to hours
         $view->assign('editLimitDays', (int)($editLimit / 24));
         $view->assign('editLimitHours', (int)($editLimit % 24));
     }

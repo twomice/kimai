@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -27,22 +27,20 @@ if (!isset($_REQUEST['a'])) {
 }
 
 if (!isset($_POST['name']) || is_array($_POST['name'])) {
-    $name = "";
+    $name = '';
 } else {
     $name = $_POST['name'];
 }
 
-require('includes/basics.php');
+require 'includes/basics.php';
 
 $view = new Zend_View();
-$view->setBasePath(WEBROOT . '/templates');
+$view->setBasePath(WEBROOT . 'templates');
 
-$authClass = 'Kimai_Auth_' . ucfirst($kga['authenticator']);
-if (!class_exists($authClass)) {
-    $authClass = 'Kimai_Auth_' . ucfirst($kga['authenticator']);
-}
-/* @var Kimai_Auth_Kimai $authPlugin */
-$authPlugin = new $authClass($database, $kga);
+// =========================
+// = authentication method =
+// =========================
+$authPlugin = Kimai_Registry::getAuthenticator();
 
 $view->assign('kga', $kga);
 
@@ -50,13 +48,13 @@ switch ($_REQUEST['a']) {
 
     case 'forgotPassword':
         if (!method_exists($authPlugin, 'forgotPassword')) {
-            echo json_encode(array(
+            echo json_encode([
                 'message' => $kga['lang']['passwordReset']['notSupported']
-            ));
+            ]);
         } else {
-            echo json_encode(array(
+            echo json_encode([
                 'message' => $authPlugin->forgotPassword($name)
-            ));
+            ]);
         }
         break;
 
