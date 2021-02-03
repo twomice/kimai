@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -17,15 +17,17 @@
  * along with Kimai; If not, see <http://www.gnu.org/licenses/>.
  */
 
-// insert KSPI
 $isCoreProcessor = 0;
-$dir_templates = "templates/";
-require "../../includes/kspi.php";
+$dir_templates = 'templates/';
+require '../../includes/kspi.php';
 require 'private_db_layer_mysql.php';
+
+$database = Kimai_Registry::getDatabase();
 
 function expenseAccessAllowed($entry, $action, &$errors)
 {
-    global $database, $kga;
+    $kga = Kimai_Registry::getConfig();
+    $database = Kimai_Registry::getDatabase();
 
     if (!isset($kga['user'])) {
         $errors[''] = $kga['lang']['errorMessages']['permissionDenied'];
@@ -33,7 +35,7 @@ function expenseAccessAllowed($entry, $action, &$errors)
     }
 
     // check if expense is too far in the past to allow editing (or deleting)
-    if (isset($entry['id']) && $kga['conf']['editLimit'] != "-" && time() - $entry['timestamp'] > $kga['conf']['editLimit']) {
+    if ($kga->isEditLimit() && time() - $entry['timestamp'] > $kga->getEditLimit()) {
         $errors[''] = $kga['lang']['editLimitError'];
         return false;
     }
@@ -58,7 +60,10 @@ function expenseAccessAllowed($entry, $action, &$errors)
         if ($database->checkMembershipPermission($kga['user']['userID'], $assignedOwnGroups, $permissionName)) {
             return true;
         } else {
-            Kimai_Logger::logfile("missing membership permission $permissionName of own group(s) " . implode(", ", $assignedOwnGroups) . " for user " . $kga['user']['name']);
+            Kimai_Logger::logfile("missing membership permission $permissionName of own group(s) " . implode(
+                ", ",
+                    $assignedOwnGroups
+            ) . " for user " . $kga['user']['name']);
             $errors[''] = $kga['lang']['errorMessages']['permissionDenied'];
             return false;
         }
@@ -74,8 +79,7 @@ function expenseAccessAllowed($entry, $action, &$errors)
     }
 }
 
-switch ($axAction)
-{
+switch ($axAction) {
 
     // ===========================================
     // = Load expense data from DB and return it =
@@ -83,7 +87,7 @@ switch ($axAction)
     case 'reload_exp':
         $filters = explode('|', $axValue);
         if (empty($filters[0])) {
-            $filterUsers = array();
+            $filterUsers = [];
         } else {
             $filterUsers = explode(':', $filters[0]);
         }
@@ -116,7 +120,7 @@ switch ($axAction)
         }
 
         if (isset($kga['customer'])) {
-            $filterCustomers = array($kga['customer']['customerID']);
+            $filterCustomers = [$kga['customer']['customerID']];
         }
 
         $view->assign('expenses', get_expenses($in, $out, $filterUsers, $filterCustomers, $filterProjects, 1));
@@ -143,34 +147,35 @@ switch ($axAction)
         $ann = Kimai_Format::formatCurrency($ann);
         $view->assign('project_annotations', $ann);
 
-        $view->assign('activity_annotations', array());
+        $view->assign('activity_annotations', []);
 
         if (isset($kga['user'])) {
-            $view->assign('hideComments', $database->user_get_preference('ui.showCommentsByDefault') != 1);
+            $view->assign('hideComments', !$kga->getSettings()->isShowComments());
         } else {
             $view->assign('hideComments', true);
         }
 
-        echo $view->render("expenses.php");
+        echo $view->render('expenses.php');
         break;
 
     // =======================================
     // = Erase expense entry via quickdelete =
     // =======================================
     case 'quickdelete':
-        $errors = array();
+        $errors = [];
 
         $data = expense_get($id);
 
         expenseAccessAllowed($data, 'delete', $errors);
 
-        if (count($errors) == 0) {
+        if (count($errors) === 0) {
             expense_delete($id);
         }
 
         header('Content-Type: application/json;charset=utf-8');
-        echo json_encode(array(
-            'errors' => $errors));
+        echo json_encode([
+            'errors' => $errors
+        ]);
         break;
 
     // =============================
@@ -178,7 +183,7 @@ switch ($axAction)
     // =============================
     case 'add_edit_record':
         header('Content-Type: application/json;charset=utf-8');
-        $errors = array();
+        $errors = [];
 
         // determine action for permission check
         $action = 'add';
@@ -196,7 +201,7 @@ switch ($axAction)
 
             // check if editing or deleting with the old values would be allowed
             if (!expenseAccessAllowed($data, $action, $errors)) {
-                echo json_encode(array('errors' => $errors));
+                echo json_encode(['errors' => $errors]);
                 break;
             }
         }
@@ -204,7 +209,7 @@ switch ($axAction)
         // delete now because next steps don't need to be taken for deleted entries
         if (isset($_REQUEST['erase'])) {
             expense_delete($id);
-            echo json_encode(array('errors' => $errors));
+            echo json_encode(['errors' => $errors]);
             break;
         }
 
@@ -217,7 +222,7 @@ switch ($axAction)
                 $kga['lang']['errorMessages']['emptyField'],
                 $kga['lang']['designation']
             );
-        } else if (!is_numeric($_REQUEST['edit_value'])) {
+        } elseif (!is_numeric($_REQUEST['edit_value'])) {
             $errors['edit_value'] = $kga['lang']['errorMessages']['wrongData'];
         }
 
@@ -250,7 +255,7 @@ switch ($axAction)
         }
 
         if (count($errors) > 0) {
-            echo json_encode(array('errors' => $errors));
+            echo json_encode(['errors' => $errors]);
             break;
         }
 
@@ -259,6 +264,7 @@ switch ($axAction)
         $data['designation'] = $_REQUEST['designation'];
         $data['comment'] = (isset($_REQUEST['comment']) && !empty($_REQUEST['comment'])) ? $_REQUEST['comment'] : '';
         $data['commentType'] = $_REQUEST['commentType'];
+        $data['cleared'] = isset($_REQUEST['cleared']);
         $data['refundable'] = getRequestBool('refundable');
         $data['multiplier'] = getRequestDecimal($_REQUEST['multiplier']);
         $data['value'] = getRequestDecimal($_REQUEST['edit_value']);
@@ -269,7 +275,7 @@ switch ($axAction)
         }
 
         // parse new day and time
-        $edit_day = Kimai_Format::expand_date_shortcut($_REQUEST['edit_day']);
+        $edit_day = DateTime::createFromFormat($kga->getDateFormat(3), $_REQUEST['edit_day'])->format('d.m.Y');
         $edit_time = Kimai_Format::expand_time_shortcut($_REQUEST['edit_time']);
 
         // validate day and time
@@ -285,7 +291,7 @@ switch ($axAction)
         expenseAccessAllowed($data, $action, $errors);
 
         if (count($errors) > 0) {
-            echo json_encode(array('errors' => $errors));
+            echo json_encode(['errors' => $errors]);
             break;
         }
 
@@ -294,13 +300,11 @@ switch ($axAction)
             if (expense_edit($id, $data) === false) {
                 $errors[''] = $kga['lang']['error'];
             }
-        } else {
-            if (expense_create($kga['user']['userID'], $data) === false) {
-                $errors[''] = $kga['lang']['error'];
-            }
+        } elseif (expense_create($kga['user']['userID'], $data) === false) {
+            $errors[''] = $kga['lang']['error'];
         }
 
-        echo json_encode(array('errors' => $errors));
+        echo json_encode(['errors' => $errors]);
         break;
 
 }

@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -18,7 +18,9 @@
  */
 
 include '../../includes/basics.php';
-require "private_func.php";
+require 'private_func.php';
+
+$database = Kimai_Registry::getDatabase();
 
 $user = checkUser();
 
@@ -33,13 +35,18 @@ $view = new Kimai_View();
 $view->addBasePath(__DIR__ . '/templates/');
 
 // prevent IE from caching the response
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
-header("Cache-Control: no-store, no-cache, must-revalidate");
-header("Cache-Control: post-check=0, pre-check=0", false);
-header("Pragma: no-cache");
+header('Last-Modified: ' . gmdate('D, d M Y H:i:s') . ' GMT');
+header('Cache-Control: no-store, no-cache, must-revalidate');
+header('Cache-Control: post-check=0, pre-check=0', false);
+header('Pragma: no-cache');
 
+<<<<<<< HEAD
 $timeformat = 'H:M:S';
 $dateformat = $kga['date_format'][1];
+=======
+$timeformat = 'H:M';
+$dateformat = $kga->getDateFormat(1);
+>>>>>>> master
 $view->assign('timeformat', $timeformat);
 $view->assign('dateformat', $dateformat);
 
@@ -51,9 +58,9 @@ $users = null;
 $customers = null;
 
 if (isset($kga['customer'])) {
-    $customers = array($kga['customer']['customerID']);
+    $customers = [$kga['customer']['customerID']];
 } else {
-    $users = array($kga['user']['userID']);
+    $users = [$kga['user']['userID']];
 }
 
 // Get the total amount of time shown in the table.

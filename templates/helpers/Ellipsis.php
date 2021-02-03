@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -18,15 +18,21 @@
  */
 
 /**
- * Truncates a given message.
+ * Truncates a given message
  */
 class Zend_View_Helper_Ellipsis extends Zend_View_Helper_Abstract
 {
-
+    /**
+     * Truncates a given message
+     * 
+     * @param string $text
+     * @param int $maxLength
+     * @return string
+     */
     public function ellipsis($text, $maxLength = 5)
     {
         if (strlen($text) > $maxLength) {
-            return substr($text, 0, $maxLength) . '&hellip;';
+            return substr($text, 0, $maxLength) . '…';
         }
 
         return $text;

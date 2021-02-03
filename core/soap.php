@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) 2006-2009 Kimai-Development-Team
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -22,22 +22,22 @@
  * external APPs to allow remote access.
  *
  * Please read the following page to know how this server works:
- * http://framework.zend.com/manual/en/zend.soap.server.html
+ * https://framework.zend.com/manual/1.12/en/zend.soap.server.html
  *
  * @author Kevin Papst <kpapst@gmx.net>
  */
 
 // Bootstrap Kimai
-require(dirname(__FILE__) . "/../includes/basics.php");
+require __DIR__ . '/../includes/basics.php';
 
-ini_set('soap.wsdl_cache_enabled', 0); // @TODO
-ini_set('soap.wsdl_cache_dir', APPLICATION_PATH . '/temporary/'); // @TODO
+ini_set('soap.wsdl_cache_enabled', 0); // TODO
+ini_set('soap.wsdl_cache_dir', APPLICATION_PATH . '/temporary/'); // TODO
 ini_set('soap.wsdl_cache', WSDL_CACHE_NONE); // WSDL_CACHE_DISK
 ini_set('soap.wsdl_cache_ttl', 0); // cache lifetime
 
-// @TODO check what works better, with or without?
+// TODO check what works better, with or without?
 //$soapOpts = array('soap_version' => SOAP_1_2, 'encoding' => 'UTF-8'/*, 'uri' => $wsdlUrl*/);
-$soapOpts = array();
+$soapOpts = [];
 
 if (isset($_GET['wsdl']) || isset($_GET['WSDL'])) {
 	$autodiscover = new Zend_Soap_AutoDiscover();

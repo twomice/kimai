@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -26,13 +26,13 @@ class Kimai_View extends Zend_View
 {
     public function init()
     {
-        global $kga;
-
         $this->setBasePath(APPLICATION_PATH . '/templates/');
         $this->addHelperPath(APPLICATION_PATH . '/templates/helpers/', 'Zend_View_Helper');
         $this->addHelperPath(APPLICATION_PATH . '/libraries/Kimai/View/Helper/', 'Kimai_View_Helper');
 
         parent::init();
-        $this->kga = $kga;
+
+        $kga = Kimai_Registry::getConfig();
+        $this->assign('kga', $kga);
     }
 }

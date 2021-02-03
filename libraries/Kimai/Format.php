@@ -1,25 +1,40 @@
 <?php
+/**
+ * This file is part of
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
+ * (c) Kimai-Development-Team since 2006
+ *
+ * Kimai is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; Version 3, 29 June 2007
+ *
+ * Kimai is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Kimai; If not, see <http://www.gnu.org/licenses/>.
+ */
 
 /**
  * Provides methods for formatting and parsing various data.
  */
 class Kimai_Format
 {
-
     /**
      * Format a duration given in seconds according to the global setting. Either
      * seconds are shown or not.
      *
-     * @param integer|array one value in seconds or an array of values in seconds
-     * @return integer|array depending on the $sek param which contains the formatted duration
-     * @author sl
+     * @param int|array one value in seconds or an array of values in seconds
+     * @return int|array depending on the $sek param which contains the formatted duration
      */
     public static function formatDuration($sek)
     {
-        global $kga;
+        $kga = Kimai_Registry::getConfig();
         if (is_array($sek)) {
             // Convert all values of the array.
-            $arr = array();
+            $arr = [];
             foreach ($sek as $key => $value) {
                 $arr[$key] = self::formatDuration($value);
             }
@@ -37,27 +52,27 @@ class Kimai_Format
     /**
      * Format a currency or an array of currencies accordingly.
      *
-     * @param integer|array one value or an array of decimal numbers
-     * @return integer|array formatted string(s)
-     * @author sl
+     * @param int|array $number one value or an array of decimal numbers
+     * @param bool $htmlNoWrap
+     * @return int|array|string formatted string(s)
      */
     public static function formatCurrency($number, $htmlNoWrap = true)
     {
-        global $kga;
+        $kga = Kimai_Registry::getConfig();
         if (is_array($number)) {
             // Convert all values of the array.
-            $arr = array();
+            $arr = [];
             foreach ($number as $key => $value) {
                 $arr[$key] = self::formatCurrency($value);
             }
             return $arr;
         }
 
-        $value = str_replace(".", $kga['conf']['decimalSeparator'], sprintf("%01.2f", $number));
-        if ($kga['conf']['currency_first']) {
-            $value = $kga['currency_sign'] . " " . $value;
+        $value = str_replace('.', $kga['conf']['decimalSeparator'], sprintf('%01.2f', $number));
+        if ($kga->isDisplayCurrencyFirst()) {
+            $value = $kga->getCurrencySign() . ' ' . $value;
         } else {
-            $value = $value . " " . $kga['currency_sign'];
+            $value .= ' ' . $kga->getCurrencySign();
         }
 
         if ($htmlNoWrap) {
@@ -75,11 +90,11 @@ class Kimai_Format
      */
     public static function formatAnnotations(&$ann)
     {
-        global $database, $kga;
+        $kga = Kimai_Registry::getConfig();
 
-        $type = 2;
+        $type = 0;
         if (isset($kga['user'])) {
-            $type = $database->user_get_preference('ui.sublistAnnotations');
+            $type = $kga->getSettings()->getSublistAnnotationType();
         }
 
         $userIds = array_keys($ann);
@@ -114,12 +129,10 @@ class Kimai_Format
     }
 
     /**
-     * returns hours, minutes and seconds as array
-     * input: number of seconds
+     * Returns hours, minutes and seconds as array.
      *
-     * @param integer $sek seconds to extract the time from
+     * @param int $sek number of seconds to extract the time from
      * @return array
-     * @author th
      */
     public static function hourminsec($sek)
     {
@@ -152,58 +165,56 @@ class Kimai_Format
     }
 
     /**
-     * preprocess shortcut for date entries
-     *
-     * allowed shortcut formats are shown in the dialogue for edit timesheet entries (click the "?")
+     * Preprocess shortcut for date entries.
+     * Allowed shortcut formats are shown in the dialogue for edit timesheet entries (click the "?")
      *
      * @param string $date shortcut date
      * @return string
-     * @author th
      */
     public static function expand_date_shortcut($date)
     {
-        $date = str_replace(" ", "", $date);
+        $date = str_replace(' ', '', $date);
 
         // empty string can't be a time value
-        if (strlen($date) == 0) {
+        if ($date == '') {
             return false;
         }
 
         // get the parts
         $parts = preg_split("/\./", $date);
 
-        if (count($parts) == 0 || count($parts) > 3) {
+        if (count($parts) === 0 || count($parts) > 3) {
             return false;
         }
 
         // check day
-        if (strlen($parts[0]) == 1) {
-            $parts[0] = "0" . $parts[0];
+        if (strlen($parts[0]) === 1) {
+            $parts[0] = '0' . $parts[0];
         }
 
         // check month
         if (!isset($parts[1])) {
-            $parts[1] = date("m");
-        } elseif (strlen($parts[1]) == 1) {
-            $parts[1] = "0" . $parts[1];
+            $parts[1] = date('m');
+        } elseif (strlen($parts[1]) === 1) {
+            $parts[1] = '0' . $parts[1];
         }
 
         // check year
         if (!isset($parts[2])) {
-            $parts[2] = date("Y");
-        } elseif (strlen($parts[2]) == 2) {
+            $parts[2] = date('Y');
+        } elseif (strlen($parts[2]) === 2) {
             if ($parts[2] > 70) {
                 $parts[2] = "19" . $parts[2];
             } else {
                 if ($parts[2] < 10) {
-                    $parts[2] = "200" . $parts[2];
+                    $parts[2] = '200' . $parts[2];
                 } else {
-                    $parts[2] = "20" . $parts[2];
+                    $parts[2] = '20' . $parts[2];
                 }
             }
         }
 
-        $return = implode(".", $parts);
+        $return = implode('.', $parts);
 
         if (!preg_match("/([0-9]{1,2})\.([0-9]{1,2})\.([0-9]{2,4})/", $return)) {
             $return = false;
@@ -213,19 +224,17 @@ class Kimai_Format
     }
 
     /**
-     * preprocess shortcut for time entries
-     *
-     * allowed shortcut formats are shown in the dialogue for edit timesheet entries (click the "?")
+     * Preprocess shortcut for time entries.
+     * Allowed shortcut formats are shown in the dialogue for edit timesheet entries (click the "?").
      *
      * @return string
-     * @author th
      */
     public static function expand_time_shortcut($time)
     {
-        $time = str_replace(" ", "", $time);
+        $time = str_replace(' ', '', $time);
 
         // empty string can't be a time value
-        if (strlen($time) == 0) {
+        if (strlen($time) === 0) {
             return false;
         }
 
@@ -243,10 +252,10 @@ class Kimai_Format
 
         // fill unsued parts (eg. 12:00 given but 12:00:00 is needed)
         while (count($parts) < 3) {
-            $parts[] = "00";
+            $parts[] = '00';
         }
 
-        $return = implode(":", $parts);
+        $return = implode(':', $parts);
 
         $regex23 = '([0-1][0-9])|(2[0-3])'; // regular expression for hours
         $regex59 = '([0-5][0-9])'; // regular expression for minutes and seconds
@@ -259,12 +268,10 @@ class Kimai_Format
     }
 
     /**
-     * check if a parset string matches with the following time-formatting: 20.08.2008-19:00:00
-     * returns true if string is ok
+     * Check if a parset string matches with the following time-formatting: 20.08.2008-19:00:00.
      *
      * @param string $timestring
      * @return boolean
-     * @author th
      */
     public static function check_time_format($timestring)
     {
@@ -297,7 +304,7 @@ class Kimai_Format
             $ok = 0;
         }
 
-        Kimai_Logger::logfile("time/datecheck: " . $ok);
+        Kimai_Logger::logfile('time/datecheck: ' . $ok);
 
         if ($ok) {
             return true;

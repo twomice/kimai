@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) Kimai-Development-Team
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -24,11 +24,10 @@
  */
 class Kimai_Invoice_OdtRenderer extends Kimai_Invoice_AbstractRenderer
 {
-
     /**
      * Render the invoice.
      *
-     * @return mixed
+     * @throws \tinyDocException
      */
     public function render()
     {
@@ -38,10 +37,10 @@ class Kimai_Invoice_OdtRenderer extends Kimai_Invoice_AbstractRenderer
         if (class_exists('ZipArchive')) {
             $doc->setZipMethod('ziparchive');
         } else {
-            $doc->setZipMethod('shell');
+            $doc->setZipMethod();
             try {
-                $doc->setZipBinary('zip');
-                $doc->setUnzipBinary('unzip');
+                $doc->setZipBinary();
+                $doc->setUnzipBinary();
             } catch (tinyDocException $e) {
                 $doc->setZipMethod('pclzip');
             }
@@ -49,11 +48,11 @@ class Kimai_Invoice_OdtRenderer extends Kimai_Invoice_AbstractRenderer
 
         $doc->setProcessDir($this->getTemporaryDirectory());
 
-        //This is where the template is selected
+        // This is where the template is selected
 
         $templateForm = $this->getTemplateDir() . $this->getTemplateFile();
         $doc->createFrom($templateForm);
-        $doc->loadXml('content.xml');
+        $doc->loadXml();
 
         // fetch variables from model to get values
         $customer = $this->getModel()->getCustomer();

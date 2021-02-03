@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) 2006-2009 Kimai-Development-Team
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -22,25 +22,28 @@
  * external APPs to allow remote access.
  *
  * Please read the following page to know how this server works:
- * http://framework.zend.com/manual/en/zend.json.server.html
+ * https://framework.zend.com/manual/1.12/en/zend.json.server.html
  *
  * @author Kevin Papst <kpapst@gmx.net>
  */
 
-// Bootstrap Kimai the old fashioned way
-require(dirname(__FILE__) . "/../includes/basics.php");
+// Bootstrap Kimai
+require __DIR__ . '/../includes/basics.php';
 
 header('Access-Control-Allow-Origin: *');
 
 $server = new Zend_Json_Server();
 $server->setClass('Kimai_Remote_Api');
 
-if ('GET' == $_SERVER['REQUEST_METHOD']) {
-    // Indicate the URL endpoint, and the JSON-RPC version used:
+if ('GET' === $_SERVER['REQUEST_METHOD']) {
+    // Indicate the URL endpoint and the JSON-RPC version used
+
+    /* @var Zend_Json_Server_Smd $server */
     $server->setTarget('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'])
            ->setEnvelope(Zend_Json_Server_Smd::ENV_JSONRPC_2);
 
     // Grab the SMD
+    /* @var Zend_Json_Server $server */
     $smd = $server->getServiceMap();
 
     // Return the SMD to the client
@@ -50,13 +53,12 @@ if ('GET' == $_SERVER['REQUEST_METHOD']) {
 }
 
 /**
- * http request will 
- *  - parse php://input 
+ * http request will
+ *  - parse php://input
  *  - json_decode it
  *  - auto setOptions
- * therefore request should be a string e.g. {jsonrpc : '2.0', method: '<actionString>', params : [param1, param2], id : '<anyId>' } 
+ * therefore request should be a string e.g. {jsonrpc : '2.0', method: '<actionString>', params : [param1, param2], id : '<anyId>' }
  */
 $request = new Zend_Json_Server_Request_Http();
 $server->setRequest($request);
-
 $server->handle();

@@ -1,8 +1,8 @@
 <div id="floater_innerwrap">
     <div id="floater_handle">
-        <span id="floater_title"><?php echo $this->kga['lang']['export_extension']['exportCSV'] ?></span>
+        <span id="floater_title"><?php echo $this->translate('export_extension:exportCSV') ?></span>
         <div class="right">
-            <a href="#" class="close" onclick="floaterClose();return false;"><?php echo $this->kga['lang']['close'] ?></a>
+            <a href="#" class="close" onclick="floaterClose();return false;"><?php echo $this->translate('close') ?></a>
         </div>
     </div>
     <div id="help">
@@ -10,7 +10,6 @@
     </div>
     <div class="floater_content">
         <form id="export_extension_form_export_CSV" action="../extensions/ki_export/processor.php" method="post">
-            <!-- <input type="hidden" name="id" value="" /> -->
             <input type="hidden" name="axAction" value="export_csv"/>
             <input type="hidden" name="axValue" id="axValue" value=""/>
             <input type="hidden" name="first_day" id="first_day" value=""/>
@@ -25,24 +24,24 @@
             <fieldset>
                 <ul>
                     <li>
-                        <label for="column_delimiter"><?php echo $this->kga['lang']['export_extension']['column_delimiter'] ?>:</label>
+                        <label for="column_delimiter"><?php echo $this->translate('export_extension:column_delimiter') ?>:</label>
                         <input type="text" value="<?php echo $this->escape($this->prefs['column_delimiter']) ?>" name="column_delimiter" id="column_delimiter" size="1"/>
                     </li>
                     <li>
-                        <label for="quote_char"><?php echo $this->kga['lang']['export_extension']['quote_char'] ?>:</label>
+                        <label for="quote_char"><?php echo $this->translate('export_extension:quote_char') ?>:</label>
                         <input type="text" value="<?php echo $this->escape($this->prefs['quote_char']) ?>" name="quote_char" id="quote_char" size="1">
                     </li>
                     <li>
-                        <label for="reverse_order"><?php echo $this->kga['lang']['export_extension']['reverse_order'] ?>:</label>
+                        <label for="reverse_order"><?php echo $this->translate('export_extension:reverse_order') ?>:</label>
                         <input type="checkbox" value="true" name="reverse_order" id="reverse_order"/>
                     </li>
                     <li>
-                        <?php echo $this->kga['lang']['export_extension']['dl_hint'] ?>
+                        <?php echo $this->translate('export_extension:dl_hint') ?>
                     </li>
                 </ul>
                 <div id="formbuttons">
-                    <input class='btn_norm' type='button' value='<?php echo $this->kga['lang']['cancel'] ?>' onclick='floaterClose();return false;'/>
-                    <input class='btn_ok' type='submit' value='<?php echo $this->kga['lang']['submit'] ?>' onclick="floaterClose();"/>
+	                <button type="button" class="btn_norm" onclick="floaterClose();"><?php echo $this->translate('cancel') ?></button>
+	                <input type="submit" class="btn_ok" value="<?php echo $this->translate('submit') ?>" onclick="floaterClose();"/>
                 </div>
             </fieldset>
         </form>

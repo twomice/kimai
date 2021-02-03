@@ -1,7 +1,7 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
  * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
@@ -20,7 +20,7 @@
 /**
  * english
  */
-return array(
+return [
     "countryCode" => "en-EN",
     "preferences" => "Preferences",
     "total" => "Total",
@@ -91,17 +91,17 @@ return array(
     "passwordsDontMatch" => "The passwords you've entered don't match.",
     "passwordTooShort" => "The password doesn't have at least 5 characters.",
     "forgotPassword" => "Forgot my password",
-    "passwordReset" => array(
+    "passwordReset" => [
         "button" => "Reset password",
         "notSupported" => "The current authentication plugin doesn't support resetting the password.",
-        "instructions" => "Enter your username and an email will containing a link will be sent to the associated email address. There will be no indication if your username is correct so make sure to enter it correctly!",
+        "instructions" => "Enter your username and an email containing a link will be sent to the associated email address. There will be no indication if your username is correct so make sure to enter it correctly!",
         "mailSubject" => "Kimai - Password reset",
         "mailMessage" => "This is an automatically generated mail to reset your password at Kimai. Please open the following address in your browser:\n%{URL}",
         "mailConfirmation" => "An email has been sent to the associated email address. Please follow the instructions provided in that email. If no email address is associated with this username you won't receive an email and need to contact your administrator.",
         "returnToLogin" => "return to login page",
         "invalidKey" => "The security key doesn't match the key sent by email. Make sure the complete URL is opened by your browser.",
         "success" => "Your password has been changed.",
-    ),
+    ],
     "minLength" => "min. 5 characters!",
     "update" => "The database structure of the installed Kimai version has to be updated.<br />We recommend to backup your recorded data to make sure no data gets lost<br />during the update process.",
     "updateNow" => "Update the database now!",
@@ -120,7 +120,7 @@ return array(
 
     "street" => "Street",
     "zipcode" => "Zipcode",
-    "city" => "City",
+    "city" => "City, State",
     "country" => "Country",
     "telephon" => "Phone",
     "fax" => "Fax",
@@ -209,7 +209,7 @@ return array(
     "ctype1" => "Notice",
     "ctype2" => "Caution!",
     "hint" => "Hint:",
-    "rename_caution_before_username" => "If you change the user-name of",
+    "rename_caution_before_username" => "If you change the username of",
     "rename_caution_after_username" => "you have to re-login under your new username immediately!",
     "timediff_warn" => "You must enter different times into the time in-/out fields!",
     "visibility" => "Visibility",
@@ -264,7 +264,6 @@ return array(
     "atLeastOneGroup" => 'At least one group has to be selected.',
     "noFading" => "no fading effect",
     "user_list_hidden" => "hide user list by default",
-    'show_sensible_data' => 'Display sensible data as well in the debug extension.',
     'show_update_warn' => 'Turn off warning before an update.',
     'check_at_startup' => 'Show a message on the login page if a newer version is available.',
     'show_daySeperatorLines' => 'Draw a line between entries of different days.',
@@ -278,9 +277,13 @@ return array(
     'date_format_0' => 'Date format for the datepicker (<a href="http://api.jqueryui.com/datepicker/#utility-formatDate" target="_blank">notation for dateFormat</a>)',
     'date_format_3' => 'Date format of datepicker in PHP (must match the datepicker format above - <a href="http://php.net/manual/en/function.date.php" target="_blank">notation for date</a>)',
     'table_date_format' => 'Date format for tables (<a href="http://php.net/manual/en/function.strftime.php" target="_blank">notation for strftime()</a>)',
+    'table_time_format' => 'Time format for tables (<a href="http://php.net/manual/en/function.strftime.php" target="_blank">notation for strftime()</a>)',
     'round_time' => 'Round time to ',
     'round_time_minute' => ' minute(s).',
-    'allowRoundDown' => 'Allow rounding entries down.',
+    'roundingMethod' => 'Rounding method',
+    'roundingMethod_default' => 'Default (Start down, Stop up)',
+    'roundingMethod_closest' => 'Mathematical (Start up/down, Stop up/down)',
+    'roundingMethod_ceil' => 'Always round up',
     'logged_in_as' => 'logged in as:',
     'decimal_separator' => 'Decimal separator',
     'view_filter' => 'view filter',
@@ -299,10 +302,12 @@ return array(
     'editLimitError' => 'The end date is further in the past than it was allowed to be.',
     'hideClearedEntries' => 'hide cleared entries',
     'showCommentsByDefault' => 'show comments by default',
-    'showTrackingNumber' => 'show tracking number and description details in timesheet',
+    'showTrackingNumber' => 'show tracking number in timesheet',
+    'showBillability' => 'show billability in timesheet',
     'hideOverlapLines' => 'Don\'t indicate time overlap of entries',
     'defaultLocation' => 'Default location',
     'showQuickNote'	=> 'show quick note button',
+    'inlineEditingOfDescriptions'	=> 'inline editing of descriptions',
     'general' => 'General',
     'address' => 'Address',
     'contact' => 'Contact',
@@ -321,7 +326,6 @@ return array(
     'StartTimeBeforeEndTime' => 'The start time must be before the end time.',
 
     'credits' => <<<'EOD'
-        If you do any alternations we would appreciate a posting on the <a href="%1$s">forum</a>.
         The latest developer version can be downloaded for test purposes <a href="%2$s">here</a>.
         <br /><br />
         Please support further development of Kimai with a <a href="%3$s">donation</a> or by extending its <a href="%5$s">translations</a>.
@@ -332,12 +336,18 @@ EOD
     'credits_thanks' => 'Further thanks for support to:',
     'credits_libs' => 'Our thanks also go to the projects:',
 
-    'months' => array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"),
-    'months_short' => array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
-    'weekdays' => array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"),
-    'weekdays_short' => array("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"),
+    'months' => ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    'months_short' => ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    'weekdays' => ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    'weekdays_short' => ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    'quicklink_today' => 'Today',
+    'quicklink_yesterday' => 'Yesterday',
+    'quicklink_lastWeek' => 'Last Week',
+    'quicklink_lastMonth' => 'Last Month',
+    'quicklink_thisWeek' => 'This Week',
+    'quicklink_thisMonth' => 'This Month',
 
-    'errorMessages' => array(
+    'errorMessages' => [
         'permissionDenied' => 'Permission denied',
         'userWithSameName' => 'A customer name can not be the same as a user name.',
         'userExistsAlready' => 'User exists already.',
@@ -349,22 +359,26 @@ EOD
         'multiplierNegative' => 'The multiplier must be larger than 0.',
         'emptyField' => 'Missing value for field: %s',
         'wrongData' => 'The given data is invalid',
-    ),
+    ],
 
-    'confirmations' => array(
+    'confirmations' => [
         'ownGlobalRoleChange' => 'Are you sure you want to change your own global role from "%OLD%" to "%NEW%"?\nThis can lead to less permissions!'
-    ),
+    ],
 
-    'errors' => array(
-        0 => array('hdl' => "Database could not be connected!",
-                   'txt' => "Please make sure your Database is running, has an active PDO connector and the entries in 'autoconf.php' in folder 'includes' are correct."),
-        1 => array('hdl' => "Error during installation!",
-                   'txt' => 'Kimai is unable to create necessary tables because tables with the name name already exist.<br/>
+    'errors' => [
+        0 => [
+            'hdl' => "Database could not be connected!",
+            'txt' => "Please make sure your Database is running, has an active PDO connector and the entries in 'autoconf.php' in folder 'includes' are correct."
+        ],
+        1 => [
+            'hdl' => "Error during installation!",
+            'txt' => 'Kimai is unable to create necessary tables because tables with the name name already exist.<br/>
 To update your existing installation please click <a href="../index.php">here</a>.<br/>
-Choose another table prefix or delete existing tables with this prefix in order to allow Kimai to perform a clean installation.')
-    ),
+Choose another table prefix or delete existing tables with this prefix in order to allow Kimai to perform a clean installation.'
+        ]
+    ],
 
-    'updater' => array(
+    'updater' => [
         0 => "Yes, I have a backup of my Kimai database! Proceed updating!",
         10 => "Legend:",
         20 => "Query was executed successfully.",
@@ -381,9 +395,9 @@ Choose another table prefix or delete existing tables with this prefix in order 
         130 => "Could not write to autoconf.php.",
         140 => "update file autoconf.php",
         'timezone' => 'Kimai now supports timezones. Please select your default time zone. It will be used for all users and customers. Users can change their time zone.',
-    ),
+    ],
 
-    'backup' => array(
+    'backup' => [
         0 => "This backup restore utility is not yet tested! Use at your own risk!",
         1 => "Available backups:",
         2 => "recover",
@@ -396,9 +410,9 @@ Choose another table prefix or delete existing tables with this prefix in order 
         9 => "These backups are actually snapshots! Meaning they still live within the very same database as your actual Kimai work data. Backups via this utility are NO substitution for real backups on a physically different data medium. There are plenty of tools for database backups available on the web ;)",
         10 => "Authentication required",
         11 => "To prevent unauthorized persons from creating, deleting or restoring backups, you need to give the password salt stored in include/autoconf.php. It only consists of letters and numbers."
-    ),
+    ],
 
-    'export_extension' => array(
+    'export_extension' => [
         "print_hint" => "Click OK to open a printable table.",
         "dl_hint" => "Click OK to download export-file.",
         "tab_filter" => "Filter",
@@ -444,15 +458,16 @@ Choose another table prefix or delete existing tables with this prefix in order 
         'times_and_expenses' => 'times and expenses',
         'times' => 'times',
         'expenses' => 'expenses',
-        'reverse_order' => 'older entries first',
+        'reverse_order' => 'Older entries first',
         'time_period' => 'Time period',
         'duration_unit' => 'h',
         'time_type' => 'Time format',
         'dec_time' => 'Decimal time',
         'time' => 'Standard time',
-    ),
+        'cleared' => 'Cleared',
+    ],
 
-    'ext_invoice' => array(
+    'ext_invoice' => [
         'invoiceTitle' => 'Create invoice',
         'invoiceCustomer' => 'Customer',
         'invoiceProject' => 'Projects',
@@ -461,6 +476,7 @@ Choose another table prefix or delete existing tables with this prefix in order 
         'defaultVat' => 'VAT rate',
         'invoiceOptionShort' => 'Short Invoice',
         'invoiceOptionRound' => 'Round time',
+        'markEntriesAsCleared' => 'Mark entries as cleared',
         'invoiceButton' => 'Create',
         'noData' => 'There are no entries for the selected project & time period',
         'noProject' => 'No project was selected.',
@@ -470,15 +486,15 @@ Choose another table prefix or delete existing tables with this prefix in order 
         'orderDateAsc' => 'Date - oldest first',
         'orderDateDesc' => 'Date - newest first',
         'noDateSelected' => 'Missing time period',
-    ),
+    ],
 
-    'ext_budget' => array(
+    'ext_budget' => [
         'unusedBudget' => 'unused'
-    ),
+    ],
 
     'extensionsTitle' => 'Extensions',
 
-    'permissions' => array(
+    'permissions' => [
         'view' => 'View',
         'edit' => 'edit',
         'delete' => 'delete',
@@ -491,9 +507,9 @@ Choose another table prefix or delete existing tables with this prefix in order 
         'showRates' => 'show rates',
         'editRates' => 'edit rates',
         'editAdvanced' => 'edit advanced settings'
-    ),
+    ],
 
-    'extensions' => array(
+    'extensions' => [
         'adminPanel_extension' => 'Admin Panel',
         'ki_timesheet' => 'Timesheet',
         'ki_timesheets' => 'Timesheet',
@@ -505,14 +521,19 @@ Choose another table prefix or delete existing tables with this prefix in order 
         'ki_export' => 'Export',
         'core' => 'Permissions',
         'demo_ext' => 'Demo'
-    ),
+    ],
 
-    'updatecheck' => array(
+    'updatecheck' => [
         'release' => "<b>An official update is available, with new features and bugfixes. We strongly suggest that you update.</b>",
         'beta' => "<i>New beta version available. You can fetch it from the download page for testing, but don't use it for production environments.</i>",
         'current' => "You are running the latest version :)"
-    ),
+    ],
 
-    "log_delete" => "log cleared",
+    'debug' => [
+        'lines' => '(limited to %s lines)',
+        'logfile' => 'LOGFILE',
+        'clear' => 'Clear logfile',
+        'log_delete' => 'log cleared',
+    ],
 
-);
+];

@@ -1,8 +1,8 @@
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
- * (c) 2006-2009 Kimai-Development-Team
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
+ * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -37,13 +37,15 @@ function checkUser()
             kickUser();
         } else {
             $user = $database->checkUserInternal($kimai_user);
-            Kimai_Registry::setUser(new Kimai_User($user));
-
+            if (!$user instanceof Kimai_User) {
+                $user = new Kimai_User($user);
+            }
+            Kimai_Registry::setUser($user);
             return $user;
         }
     }
 
-    Kimai_Logger::logfile("Kicking user because of missing cookie.");
+    Kimai_Logger::logfile('Kicking user because of missing cookie.');
     kickUser();
 }
 
@@ -81,25 +83,26 @@ function timezoneList()
  * @param array $showIds an array of IDs that should be shown, no matter of their visibility
  * @return array
  */
-function makeSelectBox($subject, $groups, $selection = null, $includeDeleted = false, $showIds = array())
+function makeSelectBox($subject, $groups, $selection = null, $includeDeleted = false, $showIds = [])
 {
-    global $kga, $database;
+    $kga = Kimai_Registry::getConfig();
+    $database = Kimai_Registry::getDatabase();
 
-    $sel = array();
+    $sel = [];
 
     switch ($subject) {
         case 'project':
             $projects = $database->get_projects($groups);
             foreach ($projects as $project) {
                 if (($project['visible'] && $project['customerVisible']) || in_array($project['projectID'], $showIds)) {
-                    if ($kga['conf']['flip_project_display']) {
+                    if ($kga->getSettings()->isFlipProjectDisplay()) {
                         $projectName = $project['customerName'] . ": " . $project['name'];
-                        if ($kga['conf']['project_comment_flag']) {
+                        if ($kga->getSettings()->isShowProjectComment()) {
                             $projectName .= "(" . $project['comment'] . ")";
                         }
                     } else {
                         $projectName = $project['name'] . " (" . $project['customerName'] . ")";
-                        if ($kga['conf']['project_comment_flag']) {
+                        if ($kga->getSettings()->isShowProjectComment()) {
                             $projectName .= "(" . $project['comment'] . ")";
                         }
                     }
@@ -140,7 +143,7 @@ function makeSelectBox($subject, $groups, $selection = null, $includeDeleted = f
             $groups = $database->get_groups();
             if (!$database->global_role_allows($kga['user']['globalRoleID'], 'core-group-otherGroup-view')) {
                 $groups = array_filter($groups, function ($group) {
-                    global $kga;
+                    $kga = Kimai_Registry::getConfig();
 
                     return array_search($group['groupID'], $kga['user']['groups']) !== false;
                 });
@@ -190,8 +193,8 @@ function makeSelectBox($subject, $groups, $selection = null, $includeDeleted = f
  */
 function random_code($length)
 {
-    $code = "";
-    $string = "ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijklmnpqrstuvwxyz0123456789";
+    $code = '';
+    $string = 'ABCDEFGHIJKLMNPQRSTUVWXYZabcdefghijklmnpqrstuvwxyz0123456789';
     mt_srand((double)microtime() * 1000000);
     for ($i = 1; $i <= $length; $i++) {
         $code .= substr($string, mt_rand(0, strlen($string) - 1), 1);
@@ -208,8 +211,8 @@ function random_code($length)
  */
 function random_number($length)
 {
-    $number = "";
-    $string = "0123456789";
+    $number = '';
+    $string = '0123456789';
     mt_srand((double)microtime() * 1000000);
     for ($i = 1; $i <= $length; $i++) {
         $number .= substr($string, mt_rand(0, strlen($string) - 1), 1);
@@ -227,26 +230,21 @@ function random_number($length)
  */
 function checkDBversion($path)
 {
-    global $kga, $database;
+    $database = Kimai_Registry::getDatabase();
+    $config = Kimai_Registry::getConfig();
 
     // check for versions before 0.7.13r96
     $installedVersion = $database->get_DBversion();
     $checkVersion = $installedVersion[0];
-    $checkVersion = "$checkVersion";
 
     if ($checkVersion == "0.5.1" && count($database->get_users()) == 0) {
         // fresh install
-        header("Location: $path/installer");
+        header("Location: $path/installer/");
         exit;
     }
 
-    if ($checkVersion != $kga['version']) {
-        header("Location: $path/updater/updater.php");
-        exit;
-    }
-
-    // the check for revision is much simpler ...
-    if ((int)$installedVersion[1] < (int)$kga['revision']) {
+    // only call updater when database changes no matter the kimai version
+    if ((int)$installedVersion[1] < $config->getRevision()) {
         header("Location: $path/updater/updater.php");
         exit;
     }
@@ -259,14 +257,14 @@ function checkDBversion($path)
  */
 function convert_time_strings($in, $out)
 {
-    $explode_in = explode("-", $in);
-    $explode_out = explode("-", $out);
+    $explode_in = explode('-', $in);
+    $explode_out = explode('-', $out);
 
-    $date_in = explode(".", $explode_in[0]);
-    $date_out = explode(".", $explode_out[0]);
+    $date_in = explode('.', $explode_in[0]);
+    $date_out = explode('.', $explode_out[0]);
 
-    $time_in = explode(":", $explode_in[1]);
-    $time_out = explode(":", $explode_out[1]);
+    $time_in = explode(':', $explode_in[1]);
+    $time_out = explode(':', $explode_out[1]);
 
     $time['in'] = mktime($time_in[0], $time_in[1], $time_in[2], $date_in[1], $date_in[0], $date_in[2]);
     $time['out'] = mktime($time_out[0], $time_out[1], $time_out[2], $date_out[1], $date_out[0], $date_out[2]);
@@ -297,11 +295,11 @@ function get_cookie($cookie_name, $default = null)
  */
 function createPassword($length)
 {
-    $chars = "234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    $chars = '234567890abcdefghijkmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $i = 0;
-    $password = "";
+    $password = '';
     while ($i <= $length) {
-        $password .= $chars{mt_rand(0, strlen($chars) - 1)};
+        $password .= $chars[mt_rand(0, strlen($chars) - 1)];
         $i++;
     }
     return $password;
@@ -312,21 +310,49 @@ function createPassword($length)
  * @param $hostname
  * @param $username
  * @param $password
+ * @param $charset
  * @param $prefix
  * @param $lang
  * @param $salt
- * @param null $timezone
+ * @param $timezone
+ * @param $mail_transport
+ * @param string $smtp_name
+ * @param string $smtp_host
+ * @param string $smtp_port
+ * @param string $smtp_auth
+ * @param string $smtp_user
+ * @param string $smtp_pass
+ * @param string $smtp_ssl
+ *
  * @return bool
  */
-function write_config_file($database, $hostname, $username, $password, $prefix, $lang, $salt, $timezone = null)
-{
-    global $kga;
+function write_config_file(
+    $database,
+    $hostname,
+    $username,
+    $password,
+    $charset,
+    $prefix,
+    $lang,
+    $salt,
+    $timezone = null,
+    $mail_transport,
+    $smtp_name = null,
+    $smtp_host = null,
+    $smtp_port = null,
+    $smtp_auth = null,
+    $smtp_user = null,
+    $smtp_pass = null,
+    $smtp_ssl = null
+) {
+    $kga = Kimai_Registry::getConfig();
+
     $database = addcslashes($database, '"$');
     $hostname = addcslashes($hostname, '"$');
     $username = addcslashes($username, '"$');
     $password = addcslashes($password, '"$');
 
-    $file = fopen(realpath(dirname(__FILE__)) . '/autoconf.php', 'w');
+    $file = fopen(realpath(__DIR__) . '/autoconf.php', 'wb');
     if (!$file) {
         return false;
     }
@@ -335,23 +361,24 @@ function write_config_file($database, $hostname, $username, $password, $prefix, 
     if (!empty($timezone)) {
         $timezone = addcslashes($timezone, '"$');
         $timezone = '"' . $timezone . '"';
-    } else if (isset($kga['defaultTimezone'])) {
+    } elseif (isset($kga['defaultTimezone'])) {
         $timezone = '"' . $kga['defaultTimezone'] . '"';
     } else {
         $timezone = 'date_default_timezone_get()';
     }
 
     // fetch skin from global config with "standard" fallback
-    $skin = !empty($kga['skin']) ? $kga['skin'] : Kimai_Config::getDefault(Kimai_Config::DEFAULT_SKIN);
-    $billable = !empty($kga['billable']) ? var_export($kga['billable'], true) : var_export(Kimai_Config::getDefault(Kimai_Config::DEFAULT_BILLABLE), true);
-    $authenticator = !empty($kga['authenticator']) ? $kga['authenticator'] : Kimai_Config::getDefault(Kimai_Config::DEFAULT_AUTHENTICATOR);
+    $skin = !empty($kga->getSkin()) ? $kga->getSkin() : Kimai_Config::getDefault(Kimai_Config::DEFAULT_SKIN);
+    $billable = !empty($kga->getBillable()) ? var_export($kga->getBillable(), true) : var_export(Kimai_Config::getDefault(Kimai_Config::DEFAULT_BILLABLE), true);
+    $authenticator = !empty($kga->getAuthenticator()) ? $kga->getAuthenticator() : Kimai_Config::getDefault(Kimai_Config::DEFAULT_AUTHENTICATOR);
+    $lang = !empty($lang) ? $lang : Kimai_Config::getDefault(Kimai_Config::DEFAULT_LANGUAGE);
 
     $config = <<<EOD
 <?php
 /**
  * This file is part of
- * Kimai - Open Source Time Tracking // http://www.kimai.org
- * (c) Kimai-Development-Team - since 2006
+ * Kimai - Open Source Time Tracking // https://www.kimai.org
+ * (c) Kimai-Development-Team since 2006
  *
  * Kimai is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -372,17 +399,26 @@ function write_config_file($database, $hostname, $username, $password, $prefix, 
 \$server_database = "$database";
 \$server_username = "$username";
 \$server_password = "$password";
-\$server_prefix   = "$prefix";
-\$language        = "$lang";
-\$password_salt   = "$salt";
+\$server_charset = "$charset";
+\$server_prefix = "$prefix";
+\$language = "$lang";
+\$password_salt = "$salt";
 \$defaultTimezone = $timezone;
-\$skin            = "$skin";
-\$authenticator   = "$authenticator";
-\$billable        = $billable;
+\$skin = "$skin";
+\$authenticator = "$authenticator";
+\$billable = $billable;
+\$mail_transport = "$mail_transport";
+\$smtp_name = "$smtp_name";
+\$smtp_host = "$smtp_host";
+\$smtp_port = "$smtp_port";
+\$smtp_auth = "$smtp_auth";
+\$smtp_user = "$smtp_user";
+\$smtp_pass = "$smtp_pass";
+\$smtp_ssl = "$smtp_ssl";
 
 EOD;
 
-    fputs($file, $config);
+    fwrite($file, $config);
     fclose($file);
 
     return true;
@@ -403,9 +439,9 @@ EOD;
  */
 function get_timeframe()
 {
-    global $kga;
+    $kga = Kimai_Registry::getConfig();
 
-    $timeFrame = array(null, null);
+    $timeFrame = [null, null];
 
     if (isset($kga['user'])) {
         $timeFrame[0] = $kga['user']['timeframeBegin'];
@@ -413,9 +449,9 @@ function get_timeframe()
     }
 
     /* database has no entries? */
-    $mon = date("n");
-    $day = date("j");
-    $Y = date("Y");
+    $mon = date('n');
+    $day = date('j');
+    $Y = date('Y');
     if (!$timeFrame[0]) {
         $timeFrame[0] = mktime(0, 0, 0, $mon, 1, $Y);
     }
@@ -439,7 +475,7 @@ function getRequestBool($name)
             return 1;
         }
 
-        $temp = intval($_REQUEST[$name]);
+        $temp = (int)$_REQUEST[$name];
         if ($temp == 1 || $temp == 0) {
             return $temp;
         }
@@ -459,7 +495,7 @@ function getRequestBool($name)
  */
 function getRequestDecimal($value)
 {
-    global $kga;
+    $kga = Kimai_Registry::getConfig();
     if (trim($value) != '') {
         return (double)str_replace($kga['conf']['decimalSeparator'], '.', $value);
     }
@@ -481,7 +517,8 @@ function getRequestDecimal($value)
  */
 function checkGroupedObjectPermission($objectTypeName, $action, $oldGroups, $newGroups)
 {
-    global $database, $kga;
+    $kga = Kimai_Registry::getConfig();
+    $database = Kimai_Registry::getDatabase();
 
     if (!isset($kga['user'])) {
         return false;
@@ -567,7 +604,8 @@ function checkGroupedObjectPermission($objectTypeName, $action, $oldGroups, $new
  */
 function coreObjectActionAllowed($objectTypeName, $action)
 {
-    global $database, $kga;
+    $kga = Kimai_Registry::getConfig();
+    $database = Kimai_Registry::getDatabase();
 
     if ($database->global_role_allows($kga['user']['globalRoleID'], "core-$objectTypeName-otherGroup-$action")) {
         return true;
@@ -588,8 +626,8 @@ function coreObjectActionAllowed($objectTypeName, $action)
  */
 function encode_password($password)
 {
-    global $kga;    
-    
+    $kga = Kimai_Registry::getConfig();
+
     $salt = $kga['password_salt'];
     return md5($salt . $password . $salt);
 }
