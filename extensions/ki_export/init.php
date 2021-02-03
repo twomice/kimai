@@ -40,13 +40,8 @@ header('Cache-Control: no-store, no-cache, must-revalidate');
 header('Cache-Control: post-check=0, pre-check=0', false);
 header('Pragma: no-cache');
 
-<<<<<<< HEAD
-$timeformat = 'H:M:S';
-$dateformat = $kga['date_format'][1];
-=======
 $timeformat = 'H:M';
 $dateformat = $kga->getDateFormat(1);
->>>>>>> master
 $view->assign('timeformat', $timeformat);
 $view->assign('dateformat', $dateformat);
 

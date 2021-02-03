@@ -16,22 +16,6 @@ if ($this->timeSheetEntries) {
     <div id="timeSheetTable">
         <table>
             <colgroup>
-<<<<<<< HEAD
-              <col class="option" />
-              <col class="date" />
-              <col class="from" />
-              <col class="to" />
-              <col class="time" />
-<?php if ($this->showRates): ?>
-              <col class="wage" />
-<?php endif; ?>
-              <col class="client" />
-              <col class="project" />
-              <col class="activity" />
-            <?php if ($this->showTrackingNumber) { ?>
-              <col class="trackingnumber" />
-            <?php } ?>
-=======
                 <col class="option" />
                 <col class="date" />
                 <col class="from" />
@@ -46,12 +30,11 @@ if ($this->timeSheetEntries) {
                 <col class="client" />
                 <col class="project" />
                 <col class="activity" />
-                <col class="description" />
+                <!-- col class="description" / -->
                 <?php if ($this->showTrackingNumber): ?>
                     <col class="trackingnumber"/>
                 <?php endif; ?>
-                <col class="username" />
->>>>>>> master
+                <!-- col class="username" / -->
             </colgroup>
             <tbody>
             <?php
@@ -220,7 +203,8 @@ if ($this->timeSheetEntries) {
                         <?php endif; ?>
                     <?php endif; ?>
                 </td>
-                <td class="description <?php echo $tdClass; ?>"><?php
+                <!-- OMIT DESCRIPTION
+                td class="description <?php echo $tdClass; ?>"><?php
 	                if ($this->inlineEditingOfDescriptions): ?>
                         <textarea rows="1" style="width: 100%; resize:none" id="description_<?php echo $row['timeEntryID']; ?>" onfocus="$(this).attr('rows',3);" onfocusout="$(this).attr('rows',1);" onchange="ts_updateDescription(<?php echo $row['timeEntryID']; ?>, 0)"><?php echo htmlspecialchars($row['description']); ?></textarea>
                     <?php else: ?>
@@ -229,36 +213,25 @@ if ($this->timeSheetEntries) {
                             <a href="#" onclick="$(this).blur(); return false;" ><img src="<?php echo $this->skin('grfx/blase_sys.gif'); ?>" width="12" height="13" title='<?php echo $this->escape($row['description'])?>' border="0" /></a>
                         <?php endif; ?>
                     <?php endif;
-                    ?></td>
+                    ?></td
+                    -->
                 <?php if ($this->showTrackingNumber): ?>
                     <td class="trackingnumber <?php echo $tdClass; ?>"><?php
 	                    echo $this->escape($row['trackingNumber']);
 	                    ?></td>
                 <?php endif; ?>
-<<<<<<< HEAD
-            </td>
-
-            <?php if ($this->showTrackingNumber) { ?>
-            <td class="trackingnumber <?php echo $tdClass; ?>">
-                <?php echo $this->escape($row['trackingNumber']) ?>
-            </td>
-            <?php } ?>
-        </tr>
-
-        <?php if ($row['comment']): ?>
-            <tr id="c<?php echo $row['timeEntryID']?>" class="comm<?php echo $this->escape($row['commentType'])?>" <?php if ($this->hideComments): ?> style="display:none" <?php endif; ?> >
-=======
-                <td class="username <?php echo $tdClass; ?>">
+                <!-- OMIT USERNAME
+                td class="username <?php echo $tdClass; ?>">
                     <?php if ($row['userAlias']): ?>
                         <?php echo $this->escape($row['userAlias']) . ' (' . $this->escape($row['userName']) . ')'; ?>
                     <?php else: ?>
                         <?php echo $this->escape($row['userName']); ?>
                     <?php endif; ?>
-                </td>
+                </td 
+                -->
                 </tr>
                 <?php if ($row['comment']): ?>
                     <tr id="c<?php echo $row['timeEntryID']?>" class="comm<?php echo $this->escape($row['commentType'])?>" <?php if ($this->hideComments): ?> style="display:none" <?php endif; ?> >
->>>>>>> master
                         <td colspan="11"><?php echo nl2br($this->escape($row['comment']))?></td>
                     </tr>
                 <?php endif; ?>

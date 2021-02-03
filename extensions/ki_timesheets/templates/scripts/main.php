@@ -21,17 +21,11 @@
             <col class="customer"/>
             <col class="project"/>
             <col class="activity"/>
-<<<<<<< HEAD
-            <?php if ($this->showTrackingNumber) { ?>
-                <col class="trackingnumber"/>
-            <?php } ?>
-=======
-            <col class="description"/>
+            <!-- col class="description"/ -->
             <?php if ($this->showTrackingNumber): ?>
                 <col class="trackingnumber"/>
             <?php endif; ?>
-            <col class="username"/>
->>>>>>> master
+            <!-- col class="username"/ -->
         </colgroup>
         <tbody>
         <tr>
@@ -50,16 +44,11 @@
             <td class="customer"><?php echo $this->escape($this->translate('customer')); ?></td>
             <td class="project"><?php echo $this->escape($this->translate('project')); ?></td>
             <td class="activity"><?php echo $this->escape($this->translate('activity')); ?></td>
-            <td class="description"><?php echo $this->escape($this->translate('description')); ?></td>
+            <!-- td class="description"><?php echo $this->escape($this->translate('description')); ?></td -->
             <?php if ($this->showTrackingNumber) { ?>
-<<<<<<< HEAD
-                <td class="trackingnumber"><?php echo $this->kga['lang']['trackingNumber'] ?></td>
-            <?php } ?>
-=======
                 <td class="trackingnumber"><?php echo $this->escape($this->translate('trackingNumber')); ?></td>
             <?php } ?>
-            <td class="username"><?php echo $this->escape($this->translate('username')); ?></td>
->>>>>>> master
+            <!-- td class="username"><?php echo $this->escape($this->translate('username')); ?></td -->
         </tr>
         </tbody>
     </table>
